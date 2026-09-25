@@ -3,6 +3,20 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+
+  app.enableCors({
+    origin: process.env.WEB_ORIGIN || 'http://localhost:3000',
+    credentials: true,
+  });
+
+  app.setGlobalPrefix('api');
+
+  const port = process.env.PORT || 3001;
+
+  await app.listen(port);
+  console.log(`🚀 Сервер запущено на: http://localhost:${port}/api`);
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+  console.error('Error starting server:', err);
+});
