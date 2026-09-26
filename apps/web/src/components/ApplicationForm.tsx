@@ -1,112 +1,93 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
 import {
+  Alert,
   Box,
   Button,
-  TextField,
-  Typography,
+  CircularProgress,
   Paper,
   Stack,
+  TextField,
 } from "@mui/material";
-import { Upload, FileText, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import { useApplicationForm } from "../hooks/useApplicationForm";
+import FileUploader from "./FileUploader";
+import AnalysisResult from "./AnalysisResult";
+import AiLoader from "./AiLoader";
 
 export default function ApplicationForm() {
-  const [jobDescription, setJobDescription] = useState("");
-  const [cvFile, setCvFile] = useState<File | null>(null);
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setCvFile(e.target.files[0]);
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    // TODO: I need to connect this to my NestJS backend later.
-    // The API will trigger the LangGraph/LangChain flow to research the company,
-    // calculate the match percentage, and generate the tailored CV PDF and Cover Letter.
-    console.log("Submitting form data:", { jobDescription, cvFile });
-
-    alert("Data submitted for processing");
-  };
+  const {
+    jobDescription,
+    setJobDescription,
+    cvFile,
+    loading,
+    error,
+    result,
+    handleFileChange,
+    handleSubmit,
+  } = useApplicationForm();
 
   return (
-    <Paper
-      elevation={3}
-      sx={{ p: 4, borderRadius: 3, maxWidth: 600, mx: "auto" }}
-    >
-      <Box component="form" onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <TextField
-            id="jobDescription"
-            label="Job Description, Company Name, or Link"
-            placeholder="Paste the job description, requirements, and company info here..."
-            multiline
-            rows={6}
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            required
-            fullWidth
-            variant="outlined"
-          />
+    <>
+      <Paper
+        elevation={3}
+        sx={{ p: 4, borderRadius: 4, maxWidth: 700, mx: "auto" }}
+      >
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <TextField
+              id="jobDescription"
+              label="Job Description or Requirements"
+              placeholder="Paste the full job description here (include the company name)..."
+              multiline
+              rows={6}
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              required
+              fullWidth
+            />
 
-          <Box sx={{ textAlign: "left" }}>
-            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: "bold" }}>
-              Your CV (PDF format)
-            </Typography>
+            <FileUploader cvFile={cvFile} onFileChange={handleFileChange} />
+
+            {error && <Alert severity="error">{error}</Alert>}
 
             <Button
-              component="label"
-              variant="outlined"
-              startIcon={<Upload size={18} />}
+              type="submit"
+              variant="contained"
+              size="large"
+              disabled={loading}
+              startIcon={
+                loading ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  <Sparkles size={20} />
+                )
+              }
               fullWidth
               sx={{
                 py: 1.5,
+                fontWeight: "bold",
                 textTransform: "none",
-                borderStyle: "dashed",
-                borderWidth: 2,
+                borderRadius: 2,
               }}
             >
-              {cvFile ? "Change File" : "Upload PDF File"}
-              <input
-                type="file"
-                accept=".pdf"
-                hidden
-                onChange={handleFileChange}
-                required={!cvFile}
-              />
+              {loading ? "AI is working..." : "Analyze and Generate"}
             </Button>
+          </Stack>
+        </Box>
+      </Paper>
 
-            {cvFile && (
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  mt: 1.5,
-                  alignItems: "center",
-                  color: "text.secondary",
-                }}
-              >
-                <FileText size={16} />
-                <Typography variant="body2">{cvFile.name}</Typography>
-              </Stack>
-            )}
-          </Box>
+      {loading && (
+        <Box sx={{ mt: 4, animation: "fadeIn 0.5s ease-in" }}>
+          <AiLoader />
+        </Box>
+      )}
 
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            startIcon={<Sparkles size={20} />}
-            fullWidth
-            sx={{ py: 1.5, fontWeight: "bold", textTransform: "none" }}
-          >
-            Analyze and Generate CV + Cover Letter
-          </Button>
-        </Stack>
-      </Box>
-    </Paper>
+      {result && !loading && (
+        <Box sx={{ mt: 4 }}>
+          <AnalysisResult data={result} />
+        </Box>
+      )}
+    </>
   );
 }
