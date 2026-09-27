@@ -1,3 +1,4 @@
+
 export interface AnalysisResponse {
   job: {
     companyName: string;
@@ -5,6 +6,7 @@ export interface AnalysisResponse {
     requiredSkills: string[];
     niceToHave: string[];
     language: string;
+     
   };
   company: {
     summary: string;
@@ -21,8 +23,8 @@ export interface AnalysisResponse {
     missingSkills: string[];
     explanation: string;
   };
-  coverLetter: string;
-  tailoredCv: TailoredCv;
+  coverLetter?: string;
+  tailoredCv?: TailoredCv;
 }
 
 export interface TailoredCv {

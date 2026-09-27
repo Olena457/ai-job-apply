@@ -7,8 +7,8 @@ export const ApplicationState = Annotation.Root({
   job: Annotation<JobInfo>(),
   company: Annotation<CompanyReport>(),
   match: Annotation<Match>(),
-  coverLetter: Annotation<string>(),
-  tailoredCv: Annotation<TailoredCv>(),
+  coverLetter: Annotation<string | null>(),
+  tailoredCv: Annotation<TailoredCv | null>(),
 });
 
 export type AppState = typeof ApplicationState.State;

@@ -4,6 +4,10 @@ import { AppState } from '../state';
 import { TailoredCvSchema, TailoredCv } from '../schemas';
 
 export async function tailorCvNode(s: AppState) {
+  if (s.match && s.match.score < 38) {
+    return { tailoredCv: null };
+  }
+
   const prompt = ChatPromptTemplate.fromMessages([
     [
       'system',

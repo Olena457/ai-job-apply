@@ -4,6 +4,10 @@ import { llm } from '../llm';
 import { AppState } from '../state';
 
 export async function coverLetterNode(s: AppState) {
+  if (s.match && s.match.score < 38) {
+    return { coverLetter: null };
+  }
+
   const prompt = ChatPromptTemplate.fromMessages([
     [
       'system',

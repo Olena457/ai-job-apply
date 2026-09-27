@@ -6,9 +6,12 @@ import DownloadCvButton from "./DownloadCvButton";
 import MatchScoreCard from "./MatchScoreCard";
 import CompanyResearchCard from "./CompanyResearchCard";
 import CoverLetterCard from "./CoverLetterCard";
+import LowMatchWarning from "./LowMatchWarning";
 
 export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
   const { match, company, job, tailoredCv, coverLetter } = data;
+
+  const isLowMatch = match.score < 38;
 
   return (
     <Stack
@@ -17,18 +20,26 @@ export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
     >
       <MatchScoreCard match={match} job={job} />
 
-      <CompanyResearchCard company={company} />
+      {isLowMatch ? (
+        <LowMatchWarning />
+      ) : (
+        <>
+          {company && <CompanyResearchCard company={company} />}
 
-      <CoverLetterCard initialLetter={coverLetter} />
+          {coverLetter && <CoverLetterCard initialLetter={coverLetter} />}
 
-      <Paper sx={{ p: 3, borderRadius: 3 }}>
-        <Typography variant="h6">Tailored CV</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Generated from your original CV only, without invented facts. Check it
-          before sending.
-        </Typography>
-        <DownloadCvButton cv={tailoredCv} />
-      </Paper>
+          {tailoredCv && (
+            <Paper sx={{ p: 3, borderRadius: 3 }}>
+              <Typography variant="h6">Tailored CV</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Generated from your original CV only, without invented facts.
+                Check it before sending.
+              </Typography>
+              <DownloadCvButton cv={tailoredCv} />
+            </Paper>
+          )}
+        </>
+      )}
     </Stack>
   );
 }
