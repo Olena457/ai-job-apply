@@ -10,19 +10,19 @@ export function buildApplicationGraph() {
   return new StateGraph(ApplicationState)
     .addNode('extract', extractNode)
     .addNode('research', researchNode)
-    .addNode('match', matchNode)
-    .addNode('coverLetter', coverLetterNode)
-    .addNode('tailorCv', tailorCvNode)
+    .addNode('calculateMatch', matchNode)
+    .addNode('generateCoverLetter', coverLetterNode) // Змінено з 'coverLetter'
+    .addNode('generateTailoredCv', tailorCvNode) // Змінено з 'tailorCv'
 
     .addEdge(START, 'extract')
     .addEdge('extract', 'research')
-    .addEdge('research', 'match')
+    .addEdge('research', 'calculateMatch')
 
-    .addEdge('match', 'coverLetter')
-    .addEdge('match', 'tailorCv')
+    .addEdge('calculateMatch', 'generateCoverLetter')
+    .addEdge('calculateMatch', 'generateTailoredCv')
 
-    .addEdge('coverLetter', END)
-    .addEdge('tailorCv', END)
+    .addEdge('generateCoverLetter', END)
+    .addEdge('generateTailoredCv', END)
 
     .compile();
 }
