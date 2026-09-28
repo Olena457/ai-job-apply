@@ -11,8 +11,8 @@ export function buildApplicationGraph() {
     .addNode('extract', extractNode)
     .addNode('research', researchNode)
     .addNode('calculateMatch', matchNode)
-    .addNode('generateCoverLetter', coverLetterNode) // Змінено з 'coverLetter'
-    .addNode('generateTailoredCv', tailorCvNode) // Змінено з 'tailorCv'
+    .addNode('generateCoverLetter', coverLetterNode)
+    .addNode('generateTailoredCv', tailorCvNode)
 
     .addEdge(START, 'extract')
     .addEdge('extract', 'research')
