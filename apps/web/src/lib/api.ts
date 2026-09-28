@@ -1,6 +1,6 @@
 import type { AnalysisResponse } from "../types/analysis";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 export async function analyzeApplication(
   jobDescription: string,

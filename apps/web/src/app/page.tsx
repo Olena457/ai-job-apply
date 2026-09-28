@@ -1,10 +1,21 @@
+"use client";
+
 import ApplicationForm from "@/components/ApplicationForm";
 import { Container, Typography, Box, Stack } from "@mui/material";
-import { Sparkles } from "lucide-react";
+import { Sparkles, CheckCircle2 } from "lucide-react";
+
+const FEATURES = [
+  "Upload your resume & job description",
+  "AI analysis of the target company",
+  "Generate Cover Letter & tailor CV",
+  "Calculate your detailed match score",
+  "Auto-save to Google Sheets",
+  "Track your application history",
+];
 
 export default function Home() {
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#f5f5f5", pt: 8, pb: 12 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "#f5f5f5", pt: 3, pb: 9 }}>
       <Container maxWidth="md">
         <Box sx={{ textAlign: "center", mb: 6 }}>
           <Stack
@@ -13,28 +24,52 @@ export default function Home() {
             sx={{
               justifyContent: "center",
               alignItems: "center",
-              mb: 2,
+              mb: 4,
             }}
           >
             <Sparkles size={36} color="#1976d2" />
             <Typography
               variant="h3"
               component="h1"
-              sx={{ fontWeight: 800, color: "#1a1a1a" }}
+              sx={{ fontWeight: 700, color: "#1a1a1a" }}
             >
               AI Smart Applier
             </Typography>
           </Stack>
 
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            sx={{ maxWidth: 650, mx: "auto", lineHeight: 1.6 }}
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+              gap: 2,
+              maxWidth: 680,
+              mx: "auto",
+              px: 1,
+              textAlign: "left",
+            }}
           >
-            Upload your resume, add the job description, and our AI will analyze
-            the company, determine your match score, generate a perfect Cover
-            Letter, and tailor your CV.
-          </Typography>
+            {FEATURES.map((feature) => (
+              <Stack
+                key={feature}
+                direction="row"
+                spacing={1.5}
+                sx={{ alignItems: "flex-center" }}
+              >
+                <CheckCircle2
+                  size={18}
+                  color="#1976d2"
+                  style={{ flexShrink: 0, marginTop: "3px" }}
+                />
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ fontWeight: 500, lineHeight: 1.4 }}
+                >
+                  {feature}
+                </Typography>
+              </Stack>
+            ))}
+          </Box>
         </Box>
 
         <ApplicationForm />
