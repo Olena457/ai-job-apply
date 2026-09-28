@@ -53,7 +53,7 @@ export default function Home() {
                 key={feature}
                 direction="row"
                 spacing={1.5}
-                sx={{ alignItems: "flex-center" }}
+                sx={{ alignItems: "center" }}
               >
                 <CheckCircle2
                   size={18}

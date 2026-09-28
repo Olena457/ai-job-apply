@@ -11,8 +11,8 @@ import type { TailoredCv } from "../types/analysis";
 Font.register({
   family: "Roboto",
   fonts: [
-    { src: "/fonts/Roboto-Regular.ttf" },
-    { src: "/fonts/Roboto-Bold.ttf", fontWeight: 700 },
+    { src: "https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Me5Q.ttf" },
+    { src: "https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlvAw.ttf", fontWeight: 700 },
   ],
 });
 Font.registerHyphenationCallback((word) => [word]); 
