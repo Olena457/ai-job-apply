@@ -10,8 +10,8 @@ import { AnalysisModule } from './analysis/analysis.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    GoogleSheetsModule, 
-    AnalysisModule
+    GoogleSheetsModule,
+    AnalysisModule,
   ],
   controllers: [AppController],
   providers: [AppService],
