@@ -1,93 +1,74 @@
+
 "use client";
 
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Paper,
-  Stack,
-  TextField,
-} from "@mui/material";
-import { Sparkles } from "lucide-react";
-import { useApplicationForm } from "../../hooks/useApplicationForm";
-import FileUploader from "../ui/FileUploader";
-import AnalysisResult from "../results/AnalysisResult";
-import AiLoader from "../ui/AiLoader";
+import { useState, ChangeEvent, SubmitEvent } from "react";
+import { analyzeApplication } from "../../lib/api";
+import type { AnalysisResponse } from "../../types/analysis";
+import { usePhotoForm } from "../../hooks/usePhotoForm";
 
-export default function ApplicationForm() {
-  const {
+export function useApplicationForm() {
+  const [jobDescription, setJobDescription] = useState("");
+  const [cvFile, setCvFile] = useState<File | null>(null);
+
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<AnalysisResponse | null>(null);
+
+  const { photoData, photoError, handlePhotoUpload, clearPhoto } =
+    usePhotoForm();
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) setCvFile(e.target.files[0]);
+  };
+
+  const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPhotoFile(file); 
+      handlePhotoUpload(file); 
+    } else {
+      setPhotoFile(null);
+      clearPhoto();
+    }
+  };
+
+  const handleSubmit = async (e: SubmitEvent) => {
+    e.preventDefault();
+    if (!cvFile) return;
+
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      const data = await analyzeApplication(jobDescription, cvFile);
+      setResult(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong while connecting to the server.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
     jobDescription,
     setJobDescription,
     cvFile,
+    photoFile, 
+    photoData,
+    photoError,
     loading,
     error,
     result,
     handleFileChange,
+    handlePhotoChange,
+    clearPhoto,
     handleSubmit,
-  } = useApplicationForm();
-
-  return (
-    <>
-      <Paper
-        elevation={3}
-        sx={{ p: 4, borderRadius: 4, maxWidth: 700, mx: "auto" }}
-      >
-        <Box component="form" onSubmit={handleSubmit}>
-          <Stack spacing={3}>
-            <TextField
-              id="jobDescription"
-              label="Job Description or Requirements"
-              placeholder="Paste the full job description here (include the company name)..."
-              multiline
-              rows={6}
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              required
-              fullWidth
-            />
-
-            <FileUploader cvFile={cvFile} onFileChange={handleFileChange} />
-
-            {error && <Alert severity="error">{error}</Alert>}
-
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              disabled={loading}
-              startIcon={
-                loading ? (
-                  <CircularProgress size={20} color="inherit" />
-                ) : (
-                  <Sparkles size={20} />
-                )
-              }
-              fullWidth
-              sx={{
-                py: 1.5,
-                fontWeight: "bold",
-                textTransform: "none",
-                borderRadius: 2,
-              }}
-            >
-              {loading ? "AI is working..." : "Analyze and Generate"}
-            </Button>
-          </Stack>
-        </Box>
-      </Paper>
-
-      {loading && (
-        <Box sx={{ mt: 4, animation: "fadeIn 0.5s ease-in" }}>
-          <AiLoader />
-        </Box>
-      )}
-
-      {result && !loading && (
-        <Box sx={{ mt: 4 }}>
-          <AnalysisResult data={result} />
-        </Box>
-      )}
-    </>
-  );
+  };
 }

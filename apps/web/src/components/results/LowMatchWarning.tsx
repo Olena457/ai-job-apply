@@ -2,7 +2,11 @@
 
 import { Alert, AlertTitle, Typography } from "@mui/material";
 
-export default function LowMatchWarning() {
+interface LowMatchWarningProps {
+  score: number;
+}
+
+export default function LowMatchWarning({ score }: LowMatchWarningProps) {
   return (
     <Alert
       severity="warning"
@@ -10,7 +14,7 @@ export default function LowMatchWarning() {
       sx={{ borderRadius: 3, py: 2 }}
     >
       <AlertTitle sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-        Low Match Score
+        Low Match Score: {score}%
       </AlertTitle>
       <Typography variant="body2">
         The probability that your experience is sufficient for this position or

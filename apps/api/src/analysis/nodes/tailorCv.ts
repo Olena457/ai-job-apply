@@ -15,6 +15,7 @@ export async function tailorCvNode(s: AppState) {
 - Use ONLY facts present in the original CV. Never invent employers, dates, skills or metrics.
 - Reorder and rephrase to emphasize what matches the job; use the job's keywords where they are truthful.
 - Keep it concise: 3-5 bullets per role, strongest first.
+- MUST KEEP all "Projects" (Individual and Team) from the original CV. Adapt their technical descriptions to highlight skills relevant to the job, but do not delete them.
 - Write in the language of the job posting.`,
     ],
     [
