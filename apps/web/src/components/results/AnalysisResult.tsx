@@ -1,12 +1,12 @@
 "use client";
 
 import { Stack, Paper, Typography } from "@mui/material";
-import type { AnalysisResponse } from "../types/analysis";
-import DownloadCvButton from "./DownloadCvButton";
-import MatchScoreCard from "./MatchScoreCard";
-import CompanyResearchCard from "./CompanyResearchCard";
-import CoverLetterCard from "./CoverLetterCard";
-import LowMatchWarning from "./LowMatchWarning";
+import type { AnalysisResponse } from "../../types/analysis";
+import DownloadCvButton from "../ui/DownloadCvButton";
+import MatchScoreCard from "../results/MatchScoreCard";
+import CompanyResearchCard from "../results/CompanyResearchCard";
+import CoverLetterCard from "../results/CoverLetterCard";
+import LowMatchWarning from "../results/LowMatchWarning";
 
 export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
   const { match, company, job, tailoredCv, coverLetter } = data;

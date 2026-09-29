@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import type { AnalysisResponse } from "../types/analysis";
+import type { AnalysisResponse } from "../../types/analysis";
 
 interface MatchScoreCardProps {
   match: AnalysisResponse["match"];

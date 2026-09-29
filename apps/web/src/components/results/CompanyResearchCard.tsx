@@ -1,5 +1,5 @@
 import { Chip, Paper, Stack, Typography } from "@mui/material";
-import type { AnalysisResponse } from "../types/analysis";
+import type { AnalysisResponse } from "../../types/analysis";
 
 interface CompanyResearchCardProps {
   company: AnalysisResponse["company"];

@@ -10,10 +10,10 @@ import {
   TextField,
 } from "@mui/material";
 import { Sparkles } from "lucide-react";
-import { useApplicationForm } from "../hooks/useApplicationForm";
-import FileUploader from "./FileUploader";
-import AnalysisResult from "./AnalysisResult";
-import AiLoader from "./AiLoader";
+import { useApplicationForm } from "../../hooks/useApplicationForm";
+import FileUploader from "../ui/FileUploader";
+import AnalysisResult from "../results/AnalysisResult";
+import AiLoader from "../ui/AiLoader";
 
 export default function ApplicationForm() {
   const {

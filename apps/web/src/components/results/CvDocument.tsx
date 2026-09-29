@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import type { TailoredCv } from "../types/analysis";
+import type { TailoredCv } from "../../types/analysis";
 
 Font.register({
   family: "Roboto",

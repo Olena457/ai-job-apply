@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import type { TailoredCv } from "../types/analysis";
+import type { TailoredCv } from "../../types/analysis";
 
 export default function DownloadCvButton({ cv }: { cv: TailoredCv }) {
   const [busy, setBusy] = useState(false);
@@ -12,7 +12,7 @@ export default function DownloadCvButton({ cv }: { cv: TailoredCv }) {
     try {
       const [{ pdf }, { default: CvDocument }] = await Promise.all([
         import("@react-pdf/renderer"),
-        import("../components/CvDocument"),
+        import("../results/CvDocument"),
       ]);
 
       const blob = await pdf(<CvDocument cv={cv} />).toBlob();
