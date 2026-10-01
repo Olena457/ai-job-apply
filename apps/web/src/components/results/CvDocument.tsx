@@ -1,6 +1,8 @@
+
 import {
   Document,
   Font,
+  Image,
   Page,
   StyleSheet,
   Text,
@@ -34,6 +36,18 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 20,
   },
+
+  photoContainer: {
+    marginBottom: 16,
+    alignItems: "center",
+  },
+  photo: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    objectFit: "cover",
+  },
+
   contacts: { fontSize: 9, marginBottom: 4, color: "#e0e0e0" },
   sectionTitleLeft: {
     fontSize: 11,
@@ -85,11 +99,21 @@ const styles = StyleSheet.create({
   bulletText: { flex: 1 },
 });
 
-export default function CvDocument({ cv }: { cv: TailoredCv }) {
+interface CvDocumentProps {
+  cv: TailoredCv;
+  photoData?: string | null;
+}
+
+export default function CvDocument({ cv, photoData }: CvDocumentProps) {
   return (
     <Document title={`${cv.fullName} CV`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.leftColumn}>
+          {photoData && (
+            <View style={styles.photoContainer}>
+              <Image src={photoData} style={styles.photo} alt="Profile photo" />
+            </View>
+          )}
 
           <Text style={styles.sectionTitleLeft}>Contact Info</Text>
           {cv.contacts.map((contact, i) => (

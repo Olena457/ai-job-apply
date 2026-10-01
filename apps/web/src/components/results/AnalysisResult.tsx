@@ -8,7 +8,15 @@ import CompanyResearchCard from "../results/CompanyResearchCard";
 import CoverLetterCard from "../results/CoverLetterCard";
 import LowMatchWarning from "../results/LowMatchWarning";
 
-export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
+interface AnalysisResultProps {
+  data: AnalysisResponse;
+  photoData?: string | null;
+}
+
+export default function AnalysisResult({
+  data,
+  photoData,
+}: AnalysisResultProps) {
   const { match, company, job, tailoredCv, coverLetter } = data;
 
   const isLowMatch = match.score < 38;
@@ -21,7 +29,7 @@ export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
       <MatchScoreCard match={match} job={job} />
 
       {isLowMatch ? (
-        <LowMatchWarning />
+        <LowMatchWarning score={match.score} />
       ) : (
         <>
           {company && <CompanyResearchCard company={company} />}
@@ -35,7 +43,8 @@ export default function AnalysisResult({ data }: { data: AnalysisResponse }) {
                 Generated from your original CV only, without invented facts.
                 Check it before sending.
               </Typography>
-              <DownloadCvButton cv={tailoredCv} />
+              {/* Передаємо photoData у кнопку скачування */}
+              <DownloadCvButton cv={tailoredCv} photoData={photoData} />
             </Paper>
           )}
         </>

@@ -1,34 +1,44 @@
 "use client";
 
 import { useState, ChangeEvent, SubmitEvent } from "react";
+
 import { analyzeApplication } from "../lib/api";
-import type { AnalysisResponse } from "../types/analysis";
-import { usePhotoForm } from "./usePhotoForm"; 
+import type { AnalysisResponse } from "../../src/types/analysis";
+import { usePhotoForm } from "./usePhotoForm";
 
 export function useApplicationForm() {
   const [jobDescription, setJobDescription] = useState("");
   const [cvFile, setCvFile] = useState<File | null>(null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResponse | null>(null);
 
-  const { photoData, photoError, handlePhotoUpload, clearPhoto } =
-    usePhotoForm();
+  const {
+    photoData,
+    photoError,
+    handlePhotoUpload,
+    clearPhoto: resetPhotoHook,
+  } = usePhotoForm();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) setCvFile(e.target.files[0]);
-  };
-  const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handlePhotoUpload(file);
-    } else {
-      clearPhoto(); 
+    if (e.target.files?.[0]) {
+      setCvFile(e.target.files[0]);
     }
   };
 
-  const handleSubmit = async (e: SubmitEvent) => {
+  const handlePhotoChange = (file: File) => {
+    setPhotoFile(file);
+    handlePhotoUpload(file);
+  };
+
+  const handleClearPhoto = () => {
+    setPhotoFile(null);
+    resetPhotoHook();
+  };
+
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!cvFile) return;
 
@@ -54,6 +64,7 @@ export function useApplicationForm() {
     jobDescription,
     setJobDescription,
     cvFile,
+    photoFile,
     photoData,
     photoError,
     loading,
@@ -61,7 +72,7 @@ export function useApplicationForm() {
     result,
     handleFileChange,
     handlePhotoChange,
-    clearPhoto, 
+    clearPhoto: handleClearPhoto,
     handleSubmit,
   };
 }

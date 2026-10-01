@@ -18,6 +18,21 @@ declare module "@react-pdf/renderer" {
     wrap?: boolean;
   }>;
 
+  export const Image: React.FC<{
+    src?:
+      | string
+      | {
+          uri: string;
+          method?: string;
+          headers?: Record<string, string>;
+          body?: string;
+        }
+      | Blob;
+    style?: unknown;
+    cache?: boolean;
+    alt?: string;
+  }>;
+
   export const StyleSheet: {
     create: <T extends Record<string, unknown>>(styles: T) => T;
   };

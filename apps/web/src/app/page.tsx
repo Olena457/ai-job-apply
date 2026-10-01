@@ -1,7 +1,7 @@
 "use client";
 
 import { Container, Box } from "@mui/material";
-import ApplicationForm from "@/components/form/ApplicationForm";
+import ApplicationForm  from "@/components/form/ApplicationForm";
 import PageHeader from "@/components/sections/PageHeader";
 import FeaturesSidebar from "@/components/sections/FeaturesSidebar";
 

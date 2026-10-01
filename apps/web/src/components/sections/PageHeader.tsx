@@ -3,14 +3,14 @@ import { Sparkles } from "lucide-react";
 
 export default function PageHeader() {
   return (
-    <Box sx={{ textAlign: "center", mb: { xs: 4, md: 6 } }}>
+    <Box sx={{ textAlign: "center", mb: { xs: 3, md: 4 } }}>
       <Stack
         direction="row"
         spacing={1.5}
         sx={{
           alignItems: "center",
           justifyContent: "center",
-          mb: 1.5,
+          mb: 1,
         }}
       >
         <Box
@@ -24,11 +24,16 @@ export default function PageHeader() {
         >
           <Sparkles size={28} />
         </Box>
-        {/* ТУТ ТІЛЬКИ КОРОТКА НАЗВА */}
         <Typography
           variant="h4"
-          component="h1"
-          sx={{ fontWeight: 800, color: "#0f172a" }}
+          component="h2"
+          sx={{
+            fontWeight: 700,
+            color: "#0f172a",
+            fontSize: "clamp(1.25rem, 4.1vw, 1.6rem)",
+            lineHeight: 1.3, 
+            textAlign: { xs: "left", sm: "center" }, 
+          }}
         >
           AI Smart Applier-Smart Resume & Application Builder
         </Typography>
