@@ -43,7 +43,6 @@ export default function AnalysisResult({
                 Generated from your original CV only, without invented facts.
                 Check it before sending.
               </Typography>
-              {/* Передаємо photoData у кнопку скачування */}
               <DownloadCvButton cv={tailoredCv} photoData={photoData} />
             </Paper>
           )}
