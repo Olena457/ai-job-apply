@@ -22,6 +22,7 @@ export class AnalysisController {
   async analyzeJob(
     @UploadedFile() file: Express.Multer.File,
     @Body('jobDescription') jobDescription: string,
+    @Body('companyName') companyName?: string,
   ) {
     if (!file || !jobDescription) {
       throw new BadRequestException(
@@ -53,6 +54,7 @@ export class AnalysisController {
     const result = await this.analysisService.runAnalysis(
       jobDescription,
       cvText,
+      companyName,
     );
 
     return result;

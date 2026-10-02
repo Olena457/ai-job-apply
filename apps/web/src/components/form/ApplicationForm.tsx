@@ -15,11 +15,14 @@ import FileUploader from "../ui/FileUploader";
 import PhotoUploader from "../ui/PhotoUploader";
 import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
+import CompanyInput from "../ui/CompanyInput"; 
 
 export default function ApplicationForm() {
   const {
     jobDescription,
     setJobDescription,
+    companyName, 
+    setCompanyName,
     cvFile,
     photoData,
     photoError,
@@ -40,10 +43,12 @@ export default function ApplicationForm() {
       >
         <Box component="form" onSubmit={handleSubmit}>
           <Stack spacing={3}>
+            <CompanyInput value={companyName} onChange={setCompanyName} />
+
             <TextField
               id="jobDescription"
               label="Job Description or Requirements"
-              placeholder="Paste the full job description here (include the company name)..."
+              placeholder="Paste the full job description here..."
               multiline
               rows={6}
               value={jobDescription}

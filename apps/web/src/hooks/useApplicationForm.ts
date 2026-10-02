@@ -1,13 +1,14 @@
+
 "use client";
 
 import { useState, ChangeEvent, SubmitEvent } from "react";
-
 import { analyzeApplication } from "../lib/api";
 import type { AnalysisResponse } from "../../src/types/analysis";
 import { usePhotoForm } from "./usePhotoForm";
 
 export function useApplicationForm() {
   const [jobDescription, setJobDescription] = useState("");
+  const [companyName, setCompanyName] = useState(""); 
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
 
@@ -23,9 +24,7 @@ export function useApplicationForm() {
   } = usePhotoForm();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setCvFile(e.target.files[0]);
-    }
+    if (e.target.files?.[0]) setCvFile(e.target.files[0]);
   };
 
   const handlePhotoChange = (file: File) => {
@@ -47,7 +46,11 @@ export function useApplicationForm() {
     setResult(null);
 
     try {
-      const data = await analyzeApplication(jobDescription, cvFile);
+      const data = await analyzeApplication(
+        jobDescription,
+        cvFile,
+        companyName,
+      );
       setResult(data);
     } catch (err) {
       setError(
@@ -63,6 +66,8 @@ export function useApplicationForm() {
   return {
     jobDescription,
     setJobDescription,
+    companyName, 
+    setCompanyName, 
     cvFile,
     photoFile,
     photoData,

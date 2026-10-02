@@ -3,13 +3,18 @@ import { buildApplicationGraph } from './graph';
 
 @Injectable()
 export class AnalysisService {
-  async runAnalysis(jobDescription: string, cvText: string) {
+  async runAnalysis(
+    jobDescription: string,
+    cvText: string,
+    companyName?: string,
+  ) {
     try {
       const graph = buildApplicationGraph();
 
       const result = await graph.invoke({
         jobDescription,
         cvText,
+        companyName,
       });
 
       return result;
