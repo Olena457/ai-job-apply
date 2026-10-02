@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AI Smart Applier",
   description: "AI-powered job application helper",
+  icons: {
+    icon: "/job.svg",
+  },
 };
 
 export default function RootLayout({
