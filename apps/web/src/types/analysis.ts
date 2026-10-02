@@ -1,30 +1,26 @@
+export interface JobInfo {
+  companyName: string;
+  jobTitle: string;
+  requiredSkills: string[];
+  niceToHave: string[];
+  language: string;
+}
 
-export interface AnalysisResponse {
-  job: {
-    companyName: string;
-    jobTitle: string;
-    requiredSkills: string[];
-    niceToHave: string[];
-    language: string;
-     
-  };
-  company: {
-    summary: string;
-    yearsOnMarket: string;
-    employees: string;
-    values: string[];
-    reviewsSummary: string;
-    redFlags: string[];
-    sources: string[];
-  };
-  match: {
-    score: number;
-    matchedSkills: string[];
-    missingSkills: string[];
-    explanation: string;
-  };
-  coverLetter?: string;
-  tailoredCv?: TailoredCv;
+export interface CompanyReport {
+  summary: string;
+  yearsOnMarket: string;
+  employees: string;
+  values: string[];
+  reviewsSummary: string;
+  redFlags: string[];
+  sources: string[];
+}
+
+export interface Match {
+  score: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  explanation: string;
 }
 
 export interface TailoredCv {
@@ -33,13 +29,11 @@ export interface TailoredCv {
   headline: string;
   summary: string;
   skills: string[];
-
   projects?: {
     title: string;
     techStack: string;
     description: string;
   }[];
-  
   experience: {
     role: string;
     company: string;
@@ -47,4 +41,16 @@ export interface TailoredCv {
     bullets: string[];
   }[];
   education: { title: string; details: string }[];
+  photoUrl?: string;
+}
+
+export interface AnalysisResponse {
+  jobDescription: string;
+  cvText: string;
+  companyName?: string;
+  job: JobInfo;
+  company: CompanyReport;
+  match: Match;
+  coverLetter?: string | null;
+  tailoredCv?: TailoredCv | null;
 }

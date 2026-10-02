@@ -44,6 +44,7 @@ export const TailoredCvSchema = z.object({
     }),
   ),
   education: z.array(z.object({ title: z.string(), details: z.string() })),
+  photoUrl: z.string().optional(),
 });
 
 export type JobInfo = z.infer<typeof JobSchema>;

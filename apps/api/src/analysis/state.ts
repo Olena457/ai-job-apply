@@ -5,9 +5,9 @@ export const ApplicationState = Annotation.Root({
   companyName: Annotation<string | undefined>(),
   jobDescription: Annotation<string>(),
   cvText: Annotation<string>(),
-  job: Annotation<JobInfo>(),
-  company: Annotation<CompanyReport>(),
-  match: Annotation<Match>(),
+  job: Annotation<JobInfo | undefined>(),
+  company: Annotation<CompanyReport | undefined>(),
+  match: Annotation<Match | undefined>(),
   coverLetter: Annotation<string | null>(),
   tailoredCv: Annotation<TailoredCv | null>(),
 });

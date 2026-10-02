@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -15,13 +16,13 @@ import FileUploader from "../ui/FileUploader";
 import PhotoUploader from "../ui/PhotoUploader";
 import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
-import CompanyInput from "../ui/CompanyInput"; 
+import CompanyInput from "../ui/CompanyInput";
 
 export default function ApplicationForm() {
   const {
     jobDescription,
     setJobDescription,
-    companyName, 
+    companyName,
     setCompanyName,
     cvFile,
     photoData,
@@ -72,7 +73,7 @@ export default function ApplicationForm() {
               type="submit"
               variant="contained"
               size="large"
-              disabled={loading}
+              disabled={loading || !cvFile}
               startIcon={
                 loading ? (
                   <CircularProgress size={20} color="inherit" />
@@ -88,7 +89,7 @@ export default function ApplicationForm() {
                 borderRadius: 2,
               }}
             >
-              {loading ? "AI is working..." : "Analyze and Generate"}
+              {loading ? "Analyzing Match..." : "Analyze Match"}
             </Button>
           </Stack>
         </Box>
