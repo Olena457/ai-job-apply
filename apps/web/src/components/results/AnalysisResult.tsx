@@ -15,6 +15,7 @@ import MatchScoreCard from "../results/MatchScoreCard";
 import CompanyResearchCard from "../results/CompanyResearchCard";
 import CoverLetterCard from "../results/CoverLetterCard";
 import LowMatchWarning from "../results/LowMatchWarning";
+import SaveToSheetsButton from "../results/SaveToSheetsButton";
 import { generateCoverLetter, generateTailoredCv } from "../../lib/api";
 
 interface AnalysisResultProps {
@@ -159,6 +160,13 @@ export default function AnalysisResult({
           )}
         </>
       )}
+
+      <SaveToSheetsButton
+        companyName={company?.summary !== "No public information found." && data.companyName ? data.companyName : job?.companyName || "Unknown Company"}
+        jobTitle={job?.jobTitle}
+        jobUrl={company?.website !== "unknown" ? company?.website : ""}
+        matchScore={match.score}
+      />
     </Stack>
   );
 }

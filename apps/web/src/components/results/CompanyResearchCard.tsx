@@ -16,6 +16,19 @@ export default function CompanyResearchCard({
       <Typography variant="body2" sx={{ mb: 2 }}>
         {company.summary}
       </Typography>
+
+      {company.website !== "unknown" && (
+        <Typography variant="body2">
+          Website: <a href={company.website.startsWith('http') ? company.website : `https://${company.website}`} target="_blank" rel="noopener noreferrer">{company.website}</a>
+        </Typography>
+      )}
+
+      {company.industry !== "unknown" && (
+        <Typography variant="body2">
+          Industry: <b>{company.industry}</b>
+        </Typography>
+      )}
+
       <Typography variant="body2">
         Years on market: <b>{company.yearsOnMarket}</b>
       </Typography>
@@ -29,6 +42,12 @@ export default function CompanyResearchCard({
             <Chip key={v} label={v} size="small" />
           ))}
         </Stack>
+      )}
+
+      {company.competitors?.length > 0 && (
+        <Typography variant="body2" sx={{ mb: 2 }}>
+          Competitors: <b>{company.competitors.join(", ")}</b>
+        </Typography>
       )}
 
       <Typography variant="body2" sx={{ mb: 1 }}>

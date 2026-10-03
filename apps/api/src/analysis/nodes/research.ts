@@ -9,9 +9,12 @@ const tavilyClient = tavily({ apiKey: config.TAVILY_API_KEY });
 
 const UNKNOWN_COMPANY: CompanyReport = {
   summary: 'No public information found.',
+  website: 'unknown',
+  industry: 'unknown',
   yearsOnMarket: 'unknown',
   employees: 'unknown',
   values: [],
+  competitors: [],
   reviewsSummary: 'unknown',
   redFlags: [],
   sources: [],
@@ -27,19 +30,25 @@ export async function researchNode(s: AppState) {
 
   console.log(`[Tavily Research] Searching info for company: "${name}"...`);
 
+  const isUrl = name.startsWith('http') || name.includes('/');
+  const queryName = isUrl ? `company at ${name}` : `${name} company`;
+
   const queries = [
-    `${name} company about founded number of employees`,
-    `${name} company values culture`,
-    `${name} employee reviews Glassdoor DOU red flags`,
+    `${queryName} general information overview`,
+    `${queryName} about founded number of employees`,
+    `${queryName} values culture competitors`,
+    `${queryName} employee reviews Glassdoor DOU red flags`,
   ];
 
   const raw = await Promise.all(
     queries.map((q) =>
-      tavilyClient.search(q, { maxResults: 2 }).catch((err: unknown) => {
-        const message = err instanceof Error ? err.message : String(err);
-        console.error(`[Tavily API Error] Query "${q}" failed:`, message);
-        return null;
-      }),
+      tavilyClient
+        .search(q, { maxResults: 4, searchDepth: 'advanced' })
+        .catch((err: unknown) => {
+          const message = err instanceof Error ? err.message : String(err);
+          console.error(`[Tavily API Error] Query "${q}" failed:`, message);
+          return null;
+        }),
     ),
   );
 
@@ -57,7 +66,7 @@ export async function researchNode(s: AppState) {
     const prompt = ChatPromptTemplate.fromMessages([
       [
         'system',
-        'You are a careful company researcher. Use ONLY the provided search context. If something is not in the context, write "unknown". Never invent facts.',
+        'You are a careful company researcher. Use ONLY the provided search context. If a text field is not found in the context, write "unknown". For lists/arrays, return an empty array if no information is found. Never invent facts.',
       ],
       ['human', 'Company: {name}\n\nSearch context:\n{context}'],
     ]);

@@ -27,12 +27,8 @@ export const llm = primaryModel.withFallbacks({
 export function getStructuredLlm<T extends z.ZodType>(schema: T) {
   const primaryStructured = primaryModel.withStructuredOutput(schema);
 
-  const openRouterStructured = openRouterFallbackModel.withStructuredOutput(
-    schema,
-    {
-      method: 'jsonMode',
-    },
-  );
+  const openRouterStructured =
+    openRouterFallbackModel.withStructuredOutput(schema);
 
   return primaryStructured.withFallbacks({
     fallbacks: [openRouterStructured],

@@ -14,9 +14,14 @@ export const JobSchema = z.object({
 
 export const CompanySchema = z.object({
   summary: z.string(),
+  website: z
+    .string()
+    .describe('Company website URL, or "unknown" if not found'),
+  industry: z.string().describe('Primary industry or domain, or "unknown"'),
   yearsOnMarket: z.string().describe('Approximate or "unknown"'),
   employees: z.string().describe('Approximate or "unknown"'),
   values: z.array(z.string()),
+  competitors: z.array(z.string()).describe('Main competitors, if mentioned'),
   reviewsSummary: z.string(),
   redFlags: z.array(z.string()),
   sources: z.array(z.string()),

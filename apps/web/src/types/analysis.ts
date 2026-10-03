@@ -8,9 +8,12 @@ export interface JobInfo {
 
 export interface CompanyReport {
   summary: string;
+  website: string;
+  industry: string;
   yearsOnMarket: string;
   employees: string;
   values: string[];
+  competitors: string[];
   reviewsSummary: string;
   redFlags: string[];
   sources: string[];

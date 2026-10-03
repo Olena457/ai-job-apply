@@ -5,6 +5,7 @@ import type {
   Match,
   TailoredCv,
 } from "../types/analysis";
+import { getAuthHeader } from "../lib/authHeader";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
@@ -24,6 +25,9 @@ export async function analyzeMatch(
   const res = await fetch(`${API_URL}/analysis/match`, {
     method: "POST",
     body,
+    headers: {
+      ...getAuthHeader(),
+    },
   });
   if (!res.ok) {
     const err = await res.json().catch(() => null);
@@ -43,6 +47,7 @@ export async function generateCoverLetter(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...getAuthHeader(),
     },
     body: JSON.stringify({
       cvText,
@@ -70,6 +75,7 @@ export async function generateTailoredCv(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...getAuthHeader(),
     },
     body: JSON.stringify({
       cvText,
@@ -77,6 +83,30 @@ export async function generateTailoredCv(
       job,
       match,
     }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => null);
+    throw new Error(err?.message ?? `Request failed (${res.status})`);
+  }
+  return res.json();
+}
+
+export interface SheetsApplicationData {
+  companyName: string;
+  jobTitle?: string;
+  jobUrl: string;
+  matchScore: number;
+}
+
+export async function saveToGoogleSheets(data: SheetsApplicationData) {
+  const res = await fetch(`${API_URL}/sheets/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeader(),
+    },
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {
