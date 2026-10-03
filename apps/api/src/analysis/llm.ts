@@ -10,13 +10,6 @@ export const primaryModel = new ChatGoogleGenerativeAI({
   maxRetries: 1,
 });
 
-export const fallbackModel = new ChatGoogleGenerativeAI({
-  model: config.FALLBACK_MODEL,
-  apiKey: config.GEMINI_API_KEY,
-  temperature: 0.3,
-  maxRetries: 1,
-});
-
 export const openRouterFallbackModel = new ChatOpenAI({
   modelName: 'mistralai/pixtral-12b:free',
   openAIApiKey: config.OPENROUTER_API_KEY,
@@ -28,16 +21,20 @@ export const openRouterFallbackModel = new ChatOpenAI({
 });
 
 export const llm = primaryModel.withFallbacks({
-  fallbacks: [fallbackModel, openRouterFallbackModel],
+  fallbacks: [openRouterFallbackModel],
 });
 
 export function getStructuredLlm<T extends z.ZodType>(schema: T) {
   const primaryStructured = primaryModel.withStructuredOutput(schema);
-  const fallbackStructured = fallbackModel.withStructuredOutput(schema);
-  const openRouterStructured =
-    openRouterFallbackModel.withStructuredOutput(schema);
+
+  const openRouterStructured = openRouterFallbackModel.withStructuredOutput(
+    schema,
+    {
+      method: 'jsonMode',
+    },
+  );
 
   return primaryStructured.withFallbacks({
-    fallbacks: [fallbackStructured, openRouterStructured],
+    fallbacks: [openRouterStructured],
   });
 }

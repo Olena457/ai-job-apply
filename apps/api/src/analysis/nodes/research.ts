@@ -18,8 +18,14 @@ const UNKNOWN_COMPANY: CompanyReport = {
 };
 
 export async function researchNode(s: AppState) {
-  const name = s.job?.companyName?.trim();
-  if (!name) return { company: UNKNOWN_COMPANY };
+  const name = (s.companyName || s.job?.companyName)?.trim();
+
+  if (!name) {
+    console.log('[Tavily Research] No company name provided in state.');
+    return { company: UNKNOWN_COMPANY };
+  }
+
+  console.log(`[Tavily Research] Searching info for company: "${name}"...`);
 
   const queries = [
     `${name} company about founded number of employees`,
@@ -29,7 +35,11 @@ export async function researchNode(s: AppState) {
 
   const raw = await Promise.all(
     queries.map((q) =>
-      tavilyClient.search(q, { maxResults: 2 }).catch(() => null),
+      tavilyClient.search(q, { maxResults: 2 }).catch((err: unknown) => {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error(`[Tavily API Error] Query "${q}" failed:`, message);
+        return null;
+      }),
     ),
   );
 
@@ -38,18 +48,27 @@ export async function researchNode(s: AppState) {
     .map((r) => `SOURCE: ${r.url}\n${r.content}`)
     .join('\n\n');
 
-  if (!context) return { company: UNKNOWN_COMPANY };
+  if (!context) {
+    console.log('[Tavily Research] Empty context returned from Tavily search.');
+    return { company: UNKNOWN_COMPANY };
+  }
 
-  const prompt = ChatPromptTemplate.fromMessages([
-    [
-      'system',
-      'You are a careful company researcher. Use ONLY the provided search context. If something is not in the context, write "unknown". Never invent facts.',
-    ],
-    ['human', 'Company: {name}\n\nSearch context:\n{context}'],
-  ]);
+  try {
+    const prompt = ChatPromptTemplate.fromMessages([
+      [
+        'system',
+        'You are a careful company researcher. Use ONLY the provided search context. If something is not in the context, write "unknown". Never invent facts.',
+      ],
+      ['human', 'Company: {name}\n\nSearch context:\n{context}'],
+    ]);
 
-  const chain = prompt.pipe(getStructuredLlm(CompanySchema));
-  const company = (await chain.invoke({ name, context })) as CompanyReport;
+    const chain = prompt.pipe(getStructuredLlm(CompanySchema));
+    const company = (await chain.invoke({ name, context })) as CompanyReport;
 
-  return { company };
+    return { company };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[Tavily Research] Error parsing LLM response:', message);
+    return { company: UNKNOWN_COMPANY };
+  }
 }
