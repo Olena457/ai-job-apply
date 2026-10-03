@@ -1,6 +1,6 @@
-
 "use client";
 
+import { useState } from "react"; // 1. Додано імпорт useState
 import {
   Alert,
   Box,
@@ -17,6 +17,7 @@ import PhotoUploader from "../ui/PhotoUploader";
 import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
 import CompanyInput from "../ui/CompanyInput";
+import ThemeColorPicker from "./ThemeColorPicker"; 
 
 export default function ApplicationForm() {
   const {
@@ -35,6 +36,8 @@ export default function ApplicationForm() {
     clearPhoto,
     handleSubmit,
   } = useApplicationForm();
+
+  const [themeColor, setThemeColor] = useState("#5a85b5");
 
   return (
     <>
@@ -65,6 +68,11 @@ export default function ApplicationForm() {
               error={photoError}
               onUpload={handlePhotoChange}
               onClear={clearPhoto}
+            />
+
+            <ThemeColorPicker
+              selectedColor={themeColor}
+              onChange={setThemeColor}
             />
 
             {error && <Alert severity="error">{error}</Alert>}
@@ -103,7 +111,11 @@ export default function ApplicationForm() {
 
       {result && !loading && (
         <Box sx={{ mt: 4 }}>
-          <AnalysisResult data={result} photoData={photoData} />
+          <AnalysisResult
+            data={result}
+            photoData={photoData}
+            themeColor={themeColor}
+          />
         </Box>
       )}
     </>

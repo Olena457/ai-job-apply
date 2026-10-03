@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Stack, Paper, Typography, Button, CircularProgress, Alert } from "@mui/material";
+import {
+  Stack,
+  Paper,
+  Typography,
+  Button,
+  CircularProgress,
+  Alert,
+} from "@mui/material";
 import type { AnalysisResponse } from "../../types/analysis";
 import DownloadCvButton from "../ui/DownloadCvButton";
 import MatchScoreCard from "../results/MatchScoreCard";
@@ -13,11 +20,13 @@ import { generateCoverLetter, generateTailoredCv } from "../../lib/api";
 interface AnalysisResultProps {
   data: AnalysisResponse;
   photoData?: string | null;
+  themeColor?: string; 
 }
 
 export default function AnalysisResult({
   data,
   photoData,
+  themeColor, 
 }: AnalysisResultProps) {
   const { match, company, job } = data;
 
@@ -41,11 +50,13 @@ export default function AnalysisResult({
         data.jobDescription,
         data.job,
         data.company,
-        data.match
+        data.match,
       );
       if (res.coverLetter) setCoverLetter(res.coverLetter);
     } catch (err) {
-      setClError(err instanceof Error ? err.message : "Error generating Cover Letter");
+      setClError(
+        err instanceof Error ? err.message : "Error generating Cover Letter",
+      );
     } finally {
       setIsGeneratingCL(false);
     }
@@ -59,7 +70,7 @@ export default function AnalysisResult({
         data.cvText,
         data.jobDescription,
         data.job,
-        data.match
+        data.match,
       );
       if (res.tailoredCv) setTailoredCv(res.tailoredCv);
     } catch (err) {
@@ -90,9 +101,14 @@ export default function AnalysisResult({
                 Cover Letter
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Generate a unique cover letter tailored specifically for this position.
+                Generate a unique cover letter tailored specifically for this
+                position.
               </Typography>
-              {clError && <Alert severity="error" sx={{ mb: 2 }}>{clError}</Alert>}
+              {clError && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {clError}
+                </Alert>
+              )}
               <Button
                 variant="outlined"
                 onClick={handleGenerateCL}
@@ -111,7 +127,11 @@ export default function AnalysisResult({
                 Generated from your original CV only, without invented facts.
                 Check it before sending.
               </Typography>
-              <DownloadCvButton cv={tailoredCv} photoData={photoData} />
+              <DownloadCvButton
+                cv={tailoredCv}
+                photoData={photoData}
+                themeColor={themeColor}
+              />
             </Paper>
           ) : (
             <Paper sx={{ p: 3, borderRadius: 3, textAlign: "center" }}>
@@ -119,9 +139,14 @@ export default function AnalysisResult({
                 Tailored CV
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Optimize and rephrase your CV to match the requirements of this job.
+                Optimize and rephrase your CV to match the requirements of this
+                job.
               </Typography>
-              {cvError && <Alert severity="error" sx={{ mb: 2 }}>{cvError}</Alert>}
+              {cvError && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {cvError}
+                </Alert>
+              )}
               <Button
                 variant="outlined"
                 onClick={handleGenerateCV}

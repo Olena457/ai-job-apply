@@ -54,3 +54,8 @@ export interface AnalysisResponse {
   coverLetter?: string | null;
   tailoredCv?: TailoredCv | null;
 }
+
+export interface ProjectWithDate {
+  period?: string;
+  date?: string;
+}
