@@ -1,13 +1,16 @@
 "use client";
 
 import { Container, Box } from "@mui/material";
-import ApplicationForm  from "@/components/form/ApplicationForm";
+import ApplicationForm from "@/components/form/ApplicationForm";
 import PageHeader from "@/components/sections/PageHeader";
 import FeaturesSidebar from "@/components/sections/FeaturesSidebar";
+import PasswordInput from "@/components/ui/PasswordInput";
 
 export default function Home() {
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: { xs: 4, md: 8 } }}>
+      <PasswordInput />
+
       <Container maxWidth="lg">
         <PageHeader />
 
