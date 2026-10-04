@@ -1,3 +1,4 @@
+
 "use client";
 
 import { ChangeEvent } from "react";
@@ -25,12 +26,21 @@ export default function FileUploader({
           px: 1, 
           textTransform: "none",
           borderStyle: "dashed",
-          borderWidth: 2,
+          borderColor: cvFile ? "#1976d2" : "#cbd5e1",
+          color:"#1976d2",
+          borderWidth: 1.5,
+          fontWeight: 600,
           fontSize: "clamp(0.7rem, 2.5vw, 0.675rem)",
           whiteSpace: "nowrap",
         }}
       >
-        {cvFile ? "Change File" : "Upload Your Current CV PDF File"}
+        {cvFile ? (
+          "Change File"
+        ) : (
+          <>
+            Upload Your Current CV PDF File <span style={{ color: "#d32f2f", marginLeft: "4px" }}>*</span>
+          </>
+        )}
         <input
           type="file"
           accept=".pdf"

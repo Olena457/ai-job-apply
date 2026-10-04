@@ -1,3 +1,4 @@
+
 import { TextField } from "@mui/material";
 
 interface CompanyInputProps {
@@ -15,7 +16,11 @@ export default function CompanyInput({ value, onChange }: CompanyInputProps) {
       onChange={(e) => onChange(e.target.value)}
       fullWidth
       variant="outlined"
+      required 
       sx={{
+        "& .MuiFormLabel-asterisk": {
+          color: "#d32f2f",
+        },
         "& .MuiOutlinedInput-root": {
           fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
         },

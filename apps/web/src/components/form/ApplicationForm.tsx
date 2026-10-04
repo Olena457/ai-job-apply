@@ -38,7 +38,7 @@ export default function ApplicationForm() {
     handleSubmit,
   } = useApplicationForm();
 
-  const [themeColor, setThemeColor] = useState("#5a85b5");
+  const [themeColor, setThemeColor] = useState("#608abf");
 
   return (
     <Box>
@@ -75,16 +75,21 @@ export default function ApplicationForm() {
               label="Job Description or Requirements"
               placeholder="Paste the full job description here..."
               multiline
-              rows={4}
+              rows={3}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               required
               fullWidth
+              sx={{
+                "& .MuiFormLabel-asterisk": {
+                  color: "#d32f2f",
+                },
+              }}
             />
 
             <Stack
               direction={{ xs: "column", sm: "row" }}
-              spacing={3}
+              spacing={1.5}
               sx={{ alignItems: "stretch" }}
             >
               <Box sx={{ flex: 1, display: "flex" }}>
@@ -124,14 +129,23 @@ export default function ApplicationForm() {
               }
               fullWidth
               sx={{
-                py: 1.5,
+                py: 1.1,
                 fontWeight: 700,
                 fontSize: "1.05rem",
                 textTransform: "none",
                 borderRadius: 2,
                 boxShadow: "none",
+                bgcolor: "#31A6E0",
+                color: "#ffffff",
+
                 "&:hover": {
-                  boxShadow: "0 4px 12px rgba(25, 118, 210, 0.2)",
+                  bgcolor: "#2a92c8",
+                  boxShadow: "0 4px 12px rgba(49, 166, 224, 0.3)",
+                },
+
+                "&.Mui-disabled": {
+                  bgcolor: "#e9eff4",
+                  color: "#94a3b8",
                 },
               }}
             >

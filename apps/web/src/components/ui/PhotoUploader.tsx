@@ -90,6 +90,7 @@ export default function PhotoUploader({
             color={error ? "error" : "primary"}
             onClick={() => fileInputRef.current?.click()}
             sx={{
+              fontWeight: 600,
               textTransform: "uppercase",
               fontSize: "clamp(0.65rem, 2vw, 0.675rem)",
             }}

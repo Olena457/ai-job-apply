@@ -1,7 +1,6 @@
-
 import { Box, Typography } from "@mui/material";
 import LogoIcon from "../ui/LogoIcon";
-
+import PasswordModal from "../ui/PasswordModal"; 
 export default function Header() {
   return (
     <Box
@@ -9,32 +8,35 @@ export default function Header() {
       sx={{
         display: "flex",
         alignItems: "center",
-        gap: 2,
+        justifyContent: "space-between",
         p: 2,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-        
-          width: { xs: 26, sm: 38, md: 42 },
-          height: { xs: 26, sm: 38, md: 42 },
-          flexShrink: 0,
-        }}
-      >
-        <LogoIcon />
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: { xs: 26, sm: 38, md: 42 },
+            height: { xs: 26, sm: 38, md: 42 },
+            flexShrink: 0,
+          }}
+        >
+          <LogoIcon />
+        </Box>
+
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 700,
+            color: "#1e293b",
+            fontSize: { xs: "1.25rem", md: "1.5rem" },
+          }}
+        >
+          AI Smart Applier
+        </Typography>
       </Box>
 
-      <Typography
-        variant="h6"
-        sx={{
-          fontWeight: 700,
-          color: "#1e293b",
-          fontSize: { xs: "1.25rem", md: "1.5rem" },
-        }}
-      >
-        AI Smart Applier
-      </Typography>
+      <PasswordModal />
     </Box>
   );
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, ChangeEvent, SubmitEvent } from "react";
@@ -38,6 +39,17 @@ export function useApplicationForm() {
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const password =
+      typeof window !== "undefined" ? localStorage.getItem("appPassword") : "";
+
+    if (!password || !password.trim()) {
+      setError(
+        "Please enter the access password by clicking the key icon in the header.",
+      );
+      return; 
+    }
+
     if (!cvFile) return;
 
     setLoading(true);
@@ -45,6 +57,7 @@ export function useApplicationForm() {
     setResult(null);
 
     try {
+     
       const data = await analyzeMatch(jobDescription, cvFile, companyName);
       setResult(data);
     } catch (err) {

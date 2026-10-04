@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
 export const THEME_COLORS = [
-  { id: "light-blue", hex: "#5a85b5", name: "Light Blue" },
-  { id: "dark-blue", hex: "#1e3a8a", name: "Dark Blue" },
-  { id: "emerald", hex: "#059669", name: "Emerald" },
+  { id: "light-blue", hex: "#608abf", name: "Light Blue" },
+  { id: "biege", hex: "#b39e9f", name: "Beige" },
+  { id: "emerald", hex: "#597b6a", name: "Emerald" },
+  { id: "dark-blue", hex: "#153853", name: "Dark Blue" },
 ];
 
 interface ThemeColorPickerProps {

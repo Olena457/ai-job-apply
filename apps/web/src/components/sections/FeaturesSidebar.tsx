@@ -9,7 +9,7 @@ export default function FeaturesSidebar() {
         display: "flex",
         flexWrap: "wrap", 
         gap: 1.5,
-        mb: 4,
+        mb: 3,
         justifyContent: "center", 
         width: "100%",
       }}
@@ -32,14 +32,14 @@ export default function FeaturesSidebar() {
                 justifyContent: "center",
                 bgcolor: "#31a6ed",
                 color: "#ffffff",
-                minWidth: 42,
-                height: 42,
+                minWidth: 32,
+                height: 32,
                 borderRadius: 2,
                 boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
                 flexShrink: 0,
               }}
             >
-              <Icon size={20} strokeWidth={2.5} />
+              <Icon size={20} strokeWidth={2} />
             </Box>
 
             <Box
