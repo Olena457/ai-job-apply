@@ -1,43 +1,40 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { Sparkles } from "lucide-react";
 
-export default function PageHeader() {
+import { Box, Typography } from "@mui/material";
+import LogoIcon from "../ui/LogoIcon";
+
+export default function Header() {
   return (
-    <Box sx={{ textAlign: "center", mb: { xs: 3, md: 4 } }}>
-      <Stack
-        direction="row"
-        spacing={1.5}
+    <Box
+      component="header"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 2,
+        p: 2,
+      }}
+    >
+      <Box
         sx={{
-          alignItems: "center",
-          justifyContent: "center",
-          mb: 1,
+          display: "flex",
+        
+          width: { xs: 26, sm: 38, md: 42 },
+          height: { xs: 26, sm: 38, md: 42 },
+          flexShrink: 0,
         }}
       >
-        <Box
-          sx={{
-            p: 1,
-            borderRadius: 2,
-            bgcolor: "#e3f2fd",
-            display: "flex",
-            color: "#1976d2",
-          }}
-        >
-          <Sparkles size={28} />
-        </Box>
-        <Typography
-          variant="h4"
-          component="h2"
-          sx={{
-            fontWeight: 700,
-            color: "#0f172a",
-            fontSize: "clamp(1.25rem, 4.1vw, 1.6rem)",
-            lineHeight: 1.3, 
-            textAlign: { xs: "left", sm: "center" }, 
-          }}
-        >
-          AI Smart Applier-Smart Resume & Application Builder
-        </Typography>
-      </Stack>
+        <LogoIcon />
+      </Box>
+
+      <Typography
+        variant="h6"
+        sx={{
+          fontWeight: 700,
+          color: "#1e293b",
+          fontSize: { xs: "1.25rem", md: "1.5rem" },
+        }}
+      >
+        AI Smart Applier
+      </Typography>
     </Box>
   );
 }

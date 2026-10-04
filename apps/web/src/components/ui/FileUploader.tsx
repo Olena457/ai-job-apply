@@ -14,10 +14,7 @@ export default function FileUploader({
   onFileChange,
 }: FileUploaderProps) {
   return (
-    <Box sx={{ textAlign: "left" }}>
-      <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: "bold" }}>
-        Your Current CV (PDF format)
-      </Typography>
+    <Box sx={{ textAlign: "left", width: "100%" }}>
       <Button
         component="label"
         variant="outlined"
@@ -25,12 +22,15 @@ export default function FileUploader({
         fullWidth
         sx={{
           py: 1.5,
+          px: 1, 
           textTransform: "none",
           borderStyle: "dashed",
           borderWidth: 2,
+          fontSize: "clamp(0.7rem, 2.5vw, 0.675rem)",
+          whiteSpace: "nowrap",
         }}
       >
-        {cvFile ? "Change File" : "Upload PDF File"}
+        {cvFile ? "Change File" : "Upload Your Current CV PDF File"}
         <input
           type="file"
           accept=".pdf"
@@ -44,10 +44,23 @@ export default function FileUploader({
         <Stack
           direction="row"
           spacing={1}
-          sx={{ mt: 1.5, alignItems: "center", color: "text.secondary" }}
+          sx={{
+            mt: 1.5,
+            alignItems: "center",
+            color: "text.secondary",
+            minWidth: 0, 
+          }}
         >
-          <FileText size={16} />
-          <Typography variant="body2">{cvFile.name}</Typography>
+          <FileText size={16} style={{ flexShrink: 0 }} />
+          <Typography
+            variant="body2"
+            noWrap 
+            sx={{
+              fontSize: "clamp(0.7rem, 2vw, 0.95rem)",
+            }}
+          >
+            {cvFile.name}
+          </Typography>
         </Stack>
       )}
     </Box>

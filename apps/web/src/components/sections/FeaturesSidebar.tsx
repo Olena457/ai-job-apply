@@ -1,47 +1,80 @@
-import { Box, Stack, Typography } from "@mui/material";
+
+import { Box, Typography } from "@mui/material";
 import { FEATURES } from "@/constants/features";
 
 export default function FeaturesSidebar() {
   return (
-    <Stack spacing={2.5}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap", 
+        gap: 1.5,
+        mb: 4,
+        justifyContent: "center", 
+        width: "100%",
+      }}
+    >
       {FEATURES.map((item) => {
         const Icon = item.icon;
         return (
-          <Stack
+          <Box
             key={item.text}
-            direction="row"
-            spacing={2}
-            sx={{ alignItems: "center" }}
+            sx={{
+              display: "flex",
+              width: { xs: "100%", sm: "260px" },
+              gap: 1,
+            }}
           >
             <Box
               sx={{
-                p: 1,
-                borderRadius: "10px",
-                bgcolor: "#ffffff",
-                border: "1px solid #e2e8f0",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#1976d2",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                bgcolor: "#31a6ed",
+                color: "#ffffff",
+                minWidth: 42,
+                height: 42,
+                borderRadius: 2,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
                 flexShrink: 0,
               }}
             >
-              <Icon size={18} />
+              <Icon size={20} strokeWidth={2.5} />
             </Box>
-            <Typography
-              variant="body2"
+
+            <Box
               sx={{
-                fontWeight: 600,
-                color: "#334155",
-                lineHeight: 1.4,
+                display: "flex",
+                alignItems: "center",
+                flex: 1, 
+                bgcolor: "#e9eff4",
+                px: 1.5,
+                py: 1,
+                borderRadius: 2,
+                border: "1px solid #e2e8f0",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  borderColor: "#cbd5e1",
+                  bgcolor: "#f1f5f9",
+                  transform: "translateY(-2px)", 
+                },
               }}
             >
-              {item.text}
-            </Typography>
-          </Stack>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 600,
+                  color: "#334155",
+                  fontSize: "0.8rem",
+                  lineHeight: 1.2,
+                }}
+              >
+                {item.text}
+              </Typography>
+            </Box>
+          </Box>
         );
       })}
-    </Stack>
+    </Box>
   );
 }

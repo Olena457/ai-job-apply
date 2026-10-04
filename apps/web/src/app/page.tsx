@@ -1,35 +1,21 @@
+
 "use client";
 
-import { Container, Box } from "@mui/material";
+import { Container, Box, Stack } from "@mui/material";
 import ApplicationForm from "@/components/form/ApplicationForm";
 import PageHeader from "@/components/sections/PageHeader";
 import FeaturesSidebar from "@/components/sections/FeaturesSidebar";
-import PasswordInput from "@/components/ui/PasswordInput";
 
 export default function Home() {
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: { xs: 4, md: 8 } }}>
-      <PasswordInput />
+    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: { xs: 3, } }}>
+      <Container maxWidth="md">
+        <Stack >
+          <PageHeader />
+        </Stack>
+        <FeaturesSidebar />
 
-      <Container maxWidth="lg">
-        <PageHeader />
-
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "360px 1fr" },
-            gap: { xs: 4, md: 6 },
-            alignItems: "start",
-          }}
-        >
-          <Box sx={{ position: { md: "sticky" }, top: 32 }}>
-            <FeaturesSidebar />
-          </Box>
-
-          <Box>
-            <ApplicationForm />
-          </Box>
-        </Box>
+        <ApplicationForm />
       </Container>
     </Box>
   );

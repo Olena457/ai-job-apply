@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react"; // 1. Додано імпорт useState
+import { useState } from "react";
 import {
   Alert,
   Box,
@@ -17,7 +18,7 @@ import PhotoUploader from "../ui/PhotoUploader";
 import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
 import CompanyInput from "../ui/CompanyInput";
-import ThemeColorPicker from "./ThemeColorPicker"; 
+import ThemeColorPicker from "./ThemeColorPicker";
 
 export default function ApplicationForm() {
   const {
@@ -40,42 +41,74 @@ export default function ApplicationForm() {
   const [themeColor, setThemeColor] = useState("#5a85b5");
 
   return (
-    <>
+    <Box>
       <Paper
-        elevation={3}
-        sx={{ p: 4, borderRadius: 4, maxWidth: 700, mx: "auto" }}
+        elevation={0}
+        sx={{
+          p: { xs: 3, md: 4 },
+          borderRadius: 4,
+          border: "1px solid #e2e8f0",
+          boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05)",
+          bgcolor: "#ffffff",
+          maxWidth: 600,
+          mx: "auto",
+        }}
       >
         <Box component="form" onSubmit={handleSubmit}>
           <Stack spacing={3}>
-            <CompanyInput value={companyName} onChange={setCompanyName} />
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={3}
+              sx={{ alignItems: "stretch" }}
+            >
+              <Box sx={{ flex: 1, display: "flex" }}>
+                <CompanyInput value={companyName} onChange={setCompanyName} />
+              </Box>
+
+              <Box sx={{ flex: 1, display: "flex" }}>
+                <FileUploader cvFile={cvFile} onFileChange={handleFileChange} />
+              </Box>
+            </Stack>
 
             <TextField
               id="jobDescription"
               label="Job Description or Requirements"
               placeholder="Paste the full job description here..."
               multiline
-              rows={6}
+              rows={4}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               required
               fullWidth
             />
 
-            <FileUploader cvFile={cvFile} onFileChange={handleFileChange} />
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={3}
+              sx={{ alignItems: "stretch" }}
+            >
+              <Box sx={{ flex: 1, display: "flex" }}>
+                <PhotoUploader
+                  photoData={photoData}
+                  error={photoError}
+                  onUpload={handlePhotoChange}
+                  onClear={clearPhoto}
+                />
+              </Box>
 
-            <PhotoUploader
-              photoData={photoData}
-              error={photoError}
-              onUpload={handlePhotoChange}
-              onClear={clearPhoto}
-            />
+              <Box sx={{ flex: 1, display: "flex" }}>
+                <ThemeColorPicker
+                  selectedColor={themeColor}
+                  onChange={setThemeColor}
+                />
+              </Box>
+            </Stack>
 
-            <ThemeColorPicker
-              selectedColor={themeColor}
-              onChange={setThemeColor}
-            />
-
-            {error && <Alert severity="error">{error}</Alert>}
+            {error && (
+              <Alert severity="error" sx={{ py: 0.5 }}>
+                {error}
+              </Alert>
+            )}
 
             <Button
               type="submit"
@@ -92,9 +125,14 @@ export default function ApplicationForm() {
               fullWidth
               sx={{
                 py: 1.5,
-                fontWeight: "bold",
+                fontWeight: 700,
+                fontSize: "1.05rem",
                 textTransform: "none",
                 borderRadius: 2,
+                boxShadow: "none",
+                "&:hover": {
+                  boxShadow: "0 4px 12px rgba(25, 118, 210, 0.2)",
+                },
               }}
             >
               {loading ? "Analyzing Match..." : "Analyze Match"}
@@ -118,6 +156,6 @@ export default function ApplicationForm() {
           />
         </Box>
       )}
-    </>
+    </Box>
   );
 }

@@ -1,10 +1,9 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 
 export const THEME_COLORS = [
-  { id: "light-blue", hex: "#5a85b5", name: "Light Blue" }, 
+  { id: "light-blue", hex: "#5a85b5", name: "Light Blue" },
   { id: "dark-blue", hex: "#1e3a8a", name: "Dark Blue" },
-  { id: "emerald", hex: "#059669", name: "Emerald" }, 
+  { id: "emerald", hex: "#059669", name: "Emerald" },
 ];
 
 interface ThemeColorPickerProps {
@@ -17,45 +16,64 @@ export default function ThemeColorPicker({
   onChange,
 }: ThemeColorPickerProps) {
   return (
-    <Box sx={{ mt: 2, mb: 3 }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        p: 2,
+        borderRadius: 2, 
+        border: "1.5px dashed #cbd5e1", 
+        bgcolor: "#ffffff",
+        boxSizing: "border-box",
+      }}
+    >
       <Typography
         variant="body2"
-        sx={{ fontWeight: 500, color: "text.secondary", mb: 1.5 }}
+        sx={{
+          fontWeight: 600,
+          color: "text.secondary",
+          fontSize: "clamp(0.75rem, 2vw, 0.675rem)",
+          mb: 1.5,
+        }}
       >
         CV Theme Color
       </Typography>
 
-      <Box sx={{ display: "flex", gap: 2 }}>
-        {THEME_COLORS.map((color) => (
-          <Box
-            key={color.id}
-            component="button"
-            type="button"
-            onClick={() => onChange(color.hex)}
-            title={color.name}
-            aria-label={`Select ${color.name} theme`}
-            sx={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              backgroundColor: color.hex,
-              border:
-                selectedColor === color.hex
-                  ? "2px solid white"
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        {THEME_COLORS.map((color) => {
+          const isSelected = selectedColor === color.hex;
+          return (
+            <Box
+              key={color.id}
+              component="button"
+              type="button"
+              onClick={() => onChange(color.hex)}
+              title={color.name}
+              aria-label={`Select ${color.name} theme`}
+              sx={{
+                width: 25,
+                height: 25,
+                borderRadius: "50%",
+                backgroundColor: color.hex,
+                border: "none",
+                outline: isSelected
+                  ? `2px solid ${color.hex}`
                   : "2px solid transparent",
-              outline:
-                selectedColor === color.hex ? `2px solid ${color.hex}` : "none",
-              boxShadow: selectedColor === color.hex ? 3 : 1,
-              cursor: "pointer",
-              transition: "all 0.2s ease-in-out",
-              padding: 0,
-              "&:hover": {
-                transform: "scale(1.1)",
-                boxShadow: 2,
-              },
-            }}
-          />
-        ))}
+                outlineOffset: "2px",
+                cursor: "pointer",
+                transition: "all 0.2s ease-in-out",
+                p: 0,
+                "&:hover": {
+                  transform: "scale(1.1)",
+                },
+              }}
+            />
+          );
+        })}
       </Box>
     </Box>
   );
