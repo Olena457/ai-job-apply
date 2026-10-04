@@ -48,9 +48,8 @@ export default function ApplicationForm() {
           p: { xs: 3, md: 4 },
           borderRadius: 4,
           border: "1px solid #e2e8f0",
-          boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05)",
           bgcolor: "#ffffff",
-          maxWidth: 600,
+          maxWidth: 800,
           mx: "auto",
         }}
       >

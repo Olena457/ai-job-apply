@@ -7,7 +7,7 @@ export const primaryModel = new ChatGoogleGenerativeAI({
   model: config.PRIMARY_MODEL,
   apiKey: config.GEMINI_API_KEY,
   temperature: 0.3,
-  maxRetries: 1,
+  maxRetries: 0,
 });
 
 export const openRouterFallbackModel = new ChatOpenAI({

@@ -45,7 +45,7 @@ export function useApplicationForm() {
 
     if (!password || !password.trim()) {
       setError(
-        "Please enter the access password by clicking the key icon in the header.",
+        "Please enter the access password by clicking the lock icon in the header.",
       );
       return; 
     }

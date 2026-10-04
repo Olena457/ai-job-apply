@@ -55,11 +55,24 @@ export default function SaveToSheetsButton({
           )
         }
         sx={{
-          py: 1.5,
-          fontWeight: "bold",
+          py: 1.1,
+          fontWeight: 700,
+          fontSize: "1.05rem",
           textTransform: "none",
           borderRadius: 2,
-          mt: 2,
+          boxShadow: "none",
+          bgcolor: "#31A6E0",
+          color: "#ffffff",
+
+          "&:hover": {
+            bgcolor: "#2a92c8",
+            boxShadow: "0 4px 12px rgba(49, 166, 224, 0.3)",
+          },
+
+          "&.Mui-disabled": {
+            bgcolor: "#e9eff4",
+            color: "#94a3b8",
+          },
         }}
         fullWidth
       >
