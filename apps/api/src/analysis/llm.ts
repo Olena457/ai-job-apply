@@ -13,7 +13,7 @@ export const primaryModel = new ChatGoogleGenerativeAI({
 });
 
 export const openRouterFallbackModel = new ChatOpenAI({
-  modelName: 'mistralai/pixtral-12b:free',
+  modelName: 'openrouter/free',
   openAIApiKey: config.OPENROUTER_API_KEY,
   temperature: 0.3,
   maxRetries: 2,
@@ -33,21 +33,31 @@ export function getStructuredLlm<T extends z.ZodType>(schema: T) {
 
   return RunnableLambda.from(async (input: BaseLanguageModelInput) => {
     try {
+      // Збільшено таймаут до 40 секунд
       const result = await Promise.race([
         primaryStructured.invoke(input),
         new Promise((_, reject) => {
           setTimeout(() => {
             reject(new Error('Gemini Timeout or Rate Limit'));
-          }, 10000);
+          }, 40000);
         }),
       ]);
       return result;
-    } catch (error) {
+    } catch (primaryError) {
       console.warn(
-        'Gemini failed or blocked, immediately switching to Mistral...',
-        error,
+        'Gemini failed or timed out, switching to fallback model...',
+        primaryError,
       );
-      return await openRouterStructured.invoke(input);
+
+      try {
+        const fallbackResult = await openRouterStructured.invoke(input);
+        return fallbackResult;
+      } catch (fallbackError) {
+        console.error('Fallback model ALSO failed:', fallbackError);
+        throw new Error(
+          'Both primary and fallback AI models failed to process the request.',
+        );
+      }
     }
   });
 }
