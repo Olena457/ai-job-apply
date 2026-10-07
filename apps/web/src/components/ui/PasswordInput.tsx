@@ -55,7 +55,11 @@ export default function PasswordInput() {
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={() => setShow(!show)} edge="end">
-                  {show ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {show ? (
+                    <EyeOff size={20} color="#1A2980" />
+                  ) : (
+                    <Eye size={20} color="#1A2980" />
+                  )}
                 </IconButton>
               </InputAdornment>
             ),

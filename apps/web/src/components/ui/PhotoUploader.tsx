@@ -82,7 +82,7 @@ export default function PhotoUploader({
             alignSelf: "flex-start",
           }}
         >
-          Resume photo{" "}
+          Resume photo
           <Box
             component="span"
             sx={{

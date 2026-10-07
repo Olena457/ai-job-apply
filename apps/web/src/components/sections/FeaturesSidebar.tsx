@@ -32,8 +32,8 @@ export default function FeaturesSidebar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: GRADIENTS.blue,
                 color: COLORS.lightBg,
+                background: GRADIENTS.blue,
                 minWidth: 32,
                 height: 32,
                 borderRadius: 2,
@@ -44,7 +44,7 @@ export default function FeaturesSidebar() {
                 },
               }}
             >
-              <Icon size={20} strokeWidth={2} />
+              <Icon size={20} strokeWidth={2} color="#ffffff" />
             </Box>
 
             <Box

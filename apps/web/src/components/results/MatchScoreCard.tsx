@@ -1,3 +1,4 @@
+
 import {
   Box,
   Chip,
@@ -15,20 +16,43 @@ interface MatchScoreCardProps {
 }
 
 export default function MatchScoreCard({ match, job }: MatchScoreCardProps) {
-  const color =
-    match.score >= 75 ? "success" : match.score >= 50 ? "warning" : "error";
-
   return (
     <Paper sx={{ p: 3, borderRadius: 3 }}>
       <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
         <Box sx={{ position: "relative", display: "inline-flex" }}>
+          <svg width={0} height={0}>
+            <defs>
+              <linearGradient
+                id="score-gradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#1A2980" />
+                <stop offset="100%" stopColor="#26D0CE" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <CircularProgress
+            variant="determinate"
+            value={100}
+            size={90}
+            thickness={5}
+            sx={{ color: "#e9eff4", position: "absolute" }}
+          />
+
           <CircularProgress
             variant="determinate"
             value={match.score}
-            color={color}
             size={90}
             thickness={5}
+            sx={{
+              "svg circle": { stroke: "url(#score-gradient)" },
+            }}
           />
+
           <Box
             sx={{
               position: "absolute",
@@ -43,8 +67,9 @@ export default function MatchScoreCard({ match, job }: MatchScoreCardProps) {
             </Typography>
           </Box>
         </Box>
+
         <Box>
-          <Typography variant="h6">
+          <Typography variant="h6" sx={{ color: "#1A2980" }}>
             {job.jobTitle}
             {job.companyName && ` @ ${job.companyName}`}
           </Typography>
@@ -53,8 +78,10 @@ export default function MatchScoreCard({ match, job }: MatchScoreCardProps) {
           </Typography>
         </Box>
       </Stack>
+
       <Divider sx={{ my: 2 }} />
-      <Typography variant="subtitle2" sx={{ mb: 1 }}>
+
+      <Typography variant="subtitle2" sx={{ mb: 1, color: "#1A2980" }}>
         Matched skills
       </Typography>
       <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1, mb: 2 }}>
@@ -62,13 +89,18 @@ export default function MatchScoreCard({ match, job }: MatchScoreCardProps) {
           <Chip
             key={s}
             label={s}
-            color="success"
             size="small"
             variant="outlined"
+            sx={{
+              color: "#1A2980",
+              borderColor: "#1A2980",
+              fontWeight: 500,
+            }}
           />
         ))}
       </Stack>
-      <Typography variant="subtitle2" sx={{ mb: 1 }}>
+
+      <Typography variant="subtitle2" sx={{ mb: 1, color: "#1A2980" }}>
         Missing skills
       </Typography>
       <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
@@ -79,6 +111,9 @@ export default function MatchScoreCard({ match, job }: MatchScoreCardProps) {
             color="error"
             size="small"
             variant="outlined"
+            sx={{
+              backgroundColor: "rgba(218, 102, 102, 0.05)",
+            }}
           />
         ))}
       </Stack>

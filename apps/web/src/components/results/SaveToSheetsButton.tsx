@@ -1,9 +1,11 @@
+
 "use client";
 
 import { useState } from "react";
 import { Button, CircularProgress, Alert, Snackbar } from "@mui/material";
 import { TableProperties } from "lucide-react";
 import { saveToGoogleSheets } from "../../lib/api";
+import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
 
 interface SaveToSheetsButtonProps {
   companyName: string;
@@ -44,7 +46,6 @@ export default function SaveToSheetsButton({
     <>
       <Button
         variant="contained"
-        color="secondary"
         onClick={handleSave}
         disabled={loading || success}
         startIcon={
@@ -55,23 +56,28 @@ export default function SaveToSheetsButton({
           )
         }
         sx={{
-          py: 1.1,
+          py: 1.2,
+          px: 3,
           fontWeight: 700,
           fontSize: "1.05rem",
           textTransform: "none",
           borderRadius: 2,
-          boxShadow: "none",
-          bgcolor: "#31A6E0",
-          color: "#ffffff",
+          background: GRADIENTS.mainButtonAnimated, 
+          backgroundSize: "200% auto",
+          color: COLORS.lightBg,
+          boxShadow: SHADOWS.btnGrad,
+          transition: "0.5s ease",
 
           "&:hover": {
-            bgcolor: "#2a92c8",
-            boxShadow: "0 4px 12px rgba(49, 166, 224, 0.3)",
+            backgroundPosition: "right center", 
+            boxShadow: SHADOWS.btnGradHover,
           },
 
           "&.Mui-disabled": {
-            bgcolor: "#e9eff4",
-            color: "#94a3b8",
+            background: COLORS.disabledBg,
+            color: COLORS.textMuted,
+            boxShadow: "none",
+            backgroundSize: "auto",
           },
         }}
         fullWidth

@@ -10,7 +10,7 @@ export default function CompanyResearchCard({
 }: CompanyResearchCardProps) {
   return (
     <Paper sx={{ p: 3, borderRadius: 3 }}>
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h6" sx={{ mb: 1, color: "#1A2980" }}>
         Company research
       </Typography>
       <Typography variant="body2" sx={{ mb: 2 }}>
@@ -19,7 +19,18 @@ export default function CompanyResearchCard({
 
       {company.website !== "unknown" && (
         <Typography variant="body2">
-          Website: <a href={company.website.startsWith('http') ? company.website : `https://${company.website}`} target="_blank" rel="noopener noreferrer">{company.website}</a>
+          Website:{" "}
+          <a
+            href={
+              company.website.startsWith("http")
+                ? company.website
+                : `https://${company.website}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {company.website}
+          </a>
         </Typography>
       )}
 

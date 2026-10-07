@@ -17,6 +17,7 @@ import CoverLetterCard from "../results/CoverLetterCard";
 import LowMatchWarning from "../results/LowMatchWarning";
 import SaveToSheetsButton from "../results/SaveToSheetsButton";
 import { generateCoverLetter, generateTailoredCv } from "../../lib/api";
+import { COLORS } from "@/constants/theme";
 
 interface AnalysisResultProps {
   data: AnalysisResponse;
@@ -114,7 +115,30 @@ export default function AnalysisResult({
                 variant="outlined"
                 onClick={handleGenerateCL}
                 disabled={isGeneratingCL}
-                startIcon={isGeneratingCL && <CircularProgress size={20} />}
+                startIcon={
+                  isGeneratingCL && (
+                    <CircularProgress size={20} color="inherit" />
+                  )
+                }
+                sx={{
+                  color: COLORS.navy, 
+                  borderColor: COLORS.navy,
+                  fontWeight: 600,
+                  px: 3,
+                  py: 1,
+                  borderRadius: 2,
+                  transition: "all 0.2s ease",
+
+                  "&:hover": {
+                    borderColor: COLORS.navy,
+                    bgcolor: "rgba(26, 41, 128, 0.05)", 
+                  },
+
+                  "&.Mui-disabled": {
+                    borderColor: COLORS.disabledBg,
+                    color: COLORS.textMuted,
+                  },
+                }}
               >
                 {isGeneratingCL ? "Generating..." : "Generate Cover Letter"}
               </Button>
@@ -152,7 +176,30 @@ export default function AnalysisResult({
                 variant="outlined"
                 onClick={handleGenerateCV}
                 disabled={isGeneratingCV}
-                startIcon={isGeneratingCV && <CircularProgress size={20} />}
+                startIcon={
+                  isGeneratingCV && (
+                    <CircularProgress size={20} color="inherit" />
+                  )
+                }
+                sx={{
+                  color: COLORS.navy,
+                  borderColor: COLORS.navy,
+                  fontWeight: 600,
+                  px: 3,
+                  py: 1,
+                  borderRadius: 2,
+                  transition: "all 0.2s ease",
+
+                  "&:hover": {
+                    borderColor: COLORS.navy,
+                    bgcolor: "rgba(26, 41, 128, 0.05)", 
+                  },
+
+                  "&.Mui-disabled": {
+                    borderColor: COLORS.disabledBg,
+                    color: COLORS.textMuted,
+                  },
+                }}
               >
                 {isGeneratingCV ? "Tailoring CV..." : "Generate Tailored CV"}
               </Button>
@@ -162,7 +209,12 @@ export default function AnalysisResult({
       )}
 
       <SaveToSheetsButton
-        companyName={company?.summary !== "No public information found." && data.companyName ? data.companyName : job?.companyName || "Unknown Company"}
+        companyName={
+          company?.summary !== "No public information found." &&
+          data.companyName
+            ? data.companyName
+            : job?.companyName || "Unknown Company"
+        }
         jobTitle={job?.jobTitle}
         jobUrl={company?.website !== "unknown" ? company?.website : ""}
         matchScore={match.score}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -57,18 +58,33 @@ export default function AiLoader() {
             },
           }}
         >
-          <Sparkles size={40} color="#1976d2" />
+          <Sparkles size={40} color="#26D0CE " />
         </Box>
 
         <Box sx={{ width: "100%", maxWidth: 400 }}>
           <Typography
             variant="h6"
-            color="primary"
-            sx={{ mb: 2, fontWeight: "bold" }}
+            sx={{
+              mb: 2,
+              fontWeight: "bold",
+              background: "linear-gradient(90deg, #1A2980 0%, #26D0CE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
           >
             {AI_STEPS[currentStep]}
           </Typography>
-          <LinearProgress sx={{ height: 8, borderRadius: 4 }} />
+
+          <LinearProgress
+            sx={{
+              height: 8,
+              borderRadius: 4,
+              backgroundColor: "#e9eff4",
+              "& .MuiLinearProgress-bar": {
+                background: "linear-gradient(90deg, #1A2980 0%, #26D0CE 100%)",
+              },
+            }}
+          />
         </Box>
 
         <Box sx={{ width: "100%", mt: 4, textAlign: "left" }}>
