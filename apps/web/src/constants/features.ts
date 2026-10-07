@@ -1,6 +1,6 @@
 
 import {
-  Upload,
+  Download,
   Building2,
   FileEdit,
   Target,
@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 export const FEATURES = [
-  { icon: Upload, text: "Upload Resume & JD" },
+  { icon: Download, text: "Download Resume & JD" },
   { icon: Building2, text: "AI Target Company Analysis" },
   { icon: FileEdit, text: "Tailor CV & Cover Letter" },
   { icon: Target, text: "Detailed Match Score" },

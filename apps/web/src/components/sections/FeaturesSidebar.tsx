@@ -1,16 +1,18 @@
 
+
 import { Box, Typography } from "@mui/material";
 import { FEATURES } from "@/constants/features";
+import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
 
 export default function FeaturesSidebar() {
   return (
     <Box
       sx={{
         display: "flex",
-        flexWrap: "wrap", 
+        flexWrap: "wrap",
         gap: 1.5,
         mb: 3,
-        justifyContent: "center", 
+        justifyContent: "center",
         width: "100%",
       }}
     >
@@ -30,33 +32,46 @@ export default function FeaturesSidebar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                bgcolor: "#31a6ed",
-                color: "#ffffff",
+                background: GRADIENTS.blue,
+                color: COLORS.lightBg,
                 minWidth: 32,
                 height: 32,
                 borderRadius: 2,
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                boxShadow: SHADOWS.icon,
                 flexShrink: 0,
+                "&:hover": {
+                  background: GRADIENTS.mainButtonAnimated,
+                },
               }}
             >
               <Icon size={20} strokeWidth={2} />
             </Box>
 
             <Box
+              component="button"
               sx={{
                 display: "flex",
                 alignItems: "center",
-                flex: 1, 
-                bgcolor: "#e9eff4",
+                flex: 1,
+                bgcolor: COLORS.lightBg,
                 px: 1.5,
                 py: 1,
                 borderRadius: 2,
-                border: "1px solid #e2e8f0",
+                border: `1px solid ${COLORS.border}`,
                 transition: "all 0.2s ease",
+                cursor: "pointer",
+                textAlign: "left",
+                boxShadow: SHADOWS.featureHover,
+
                 "&:hover": {
-                  borderColor: "#cbd5e1",
-                  bgcolor: "#f1f5f9",
-                  transform: "translateY(-2px)", 
+                  borderColor: COLORS.borderHover,
+                  background: GRADIENTS.body,
+                  transform: "translateY(-2px)",
+                },
+
+                "&:focus-visible": {
+                  outline: `2px solid ${COLORS.primary}`,
+                  outlineOffset: "2px",
                 },
               }}
             >
@@ -64,7 +79,7 @@ export default function FeaturesSidebar() {
                 variant="body2"
                 sx={{
                   fontWeight: 600,
-                  color: "#334155",
+                  color: COLORS.textPrimary,
                   fontSize: "0.8rem",
                   lineHeight: 1.2,
                 }}

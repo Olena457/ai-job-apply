@@ -1,4 +1,6 @@
+
 import { Box, Typography } from "@mui/material";
+import { COLORS } from "@/constants/theme";
 
 export const THEME_COLORS = [
   { id: "light-blue", hex: "#608abf", name: "Light Blue" },
@@ -26,18 +28,23 @@ export default function ThemeColorPicker({
         justifyContent: "center",
         alignItems: "center",
         p: 2,
-        borderRadius: 2, 
-        border: "1.5px dashed #cbd5e1", 
-        bgcolor: "#ffffff",
+        borderRadius: 2,
+        border: `2px dashed ${COLORS.border}`,
+        bgcolor: COLORS.lightBg,
         boxSizing: "border-box",
+
+        "&:hover": {
+          borderColor: COLORS.navy,
+          bgcolor: "rgba(26, 41, 128, 0.04)",
+        },
       }}
     >
       <Typography
-        variant="body2"
+        variant="subtitle2"
         sx={{
           fontWeight: 600,
-          color: "text.secondary",
-          fontSize: "clamp(0.75rem, 2vw, 0.675rem)",
+          color: COLORS.navy,
+          fontSize: "0.875rem",
           mb: 1.5,
         }}
       >

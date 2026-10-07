@@ -19,6 +19,7 @@ import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
 import CompanyInput from "../ui/CompanyInput";
 import ThemeColorPicker from "./ThemeColorPicker";
+import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
 
 export default function ApplicationForm() {
   const {
@@ -47,8 +48,9 @@ export default function ApplicationForm() {
         sx={{
           p: { xs: 3, md: 4 },
           borderRadius: 4,
-          border: "1px solid #e2e8f0",
-          bgcolor: "#ffffff",
+          border: `1px solid ${COLORS.border}`,
+          bgcolor: COLORS.lightBg,
+          boxShadow: SHADOWS.card,
           maxWidth: 800,
           mx: "auto",
         }}
@@ -81,7 +83,27 @@ export default function ApplicationForm() {
               fullWidth
               sx={{
                 "& .MuiFormLabel-asterisk": {
-                  color: "#d32f2f",
+                  color: COLORS.asterisk || "#d32f2f",
+                },
+                "& .MuiOutlinedInput-root": {
+                  fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
+                  "& fieldset": {
+                    borderColor: COLORS.border || "#cbd5e1",
+                    borderWidth: "1.5px",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: COLORS.borderHover || "#94a3b8",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: COLORS.navy || "#1A2980",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
+                  color: "text.secondary",
+                  "&.Mui-focused": {
+                    color: COLORS.navy || "#1A2980",
+                  },
                 },
               }}
             />
@@ -128,23 +150,26 @@ export default function ApplicationForm() {
               }
               fullWidth
               sx={{
-                py: 1.1,
+                py: 1.2,
                 fontWeight: 700,
                 fontSize: "1.05rem",
                 textTransform: "none",
                 borderRadius: 2,
-                boxShadow: "none",
-                bgcolor: "#31A6E0",
-                color: "#ffffff",
+                background: GRADIENTS.blue,
+                color: COLORS.lightBg,
+                transition: "all 0.2s ease",
 
                 "&:hover": {
-                  bgcolor: "#2a92c8",
-                  boxShadow: "0 4px 12px rgba(49, 166, 224, 0.3)",
+                  background: GRADIENTS.blueHover,
+                  boxShadow: SHADOWS.buttonHover,
+                  transform: "translateY(-1px)",
                 },
 
                 "&.Mui-disabled": {
-                  bgcolor: "#e9eff4",
-                  color: "#94a3b8",
+                  background: COLORS.disabledBg,
+                  color: COLORS.textMuted,
+                  boxShadow: "none",
+                  transform: "none",
                 },
               }}
             >

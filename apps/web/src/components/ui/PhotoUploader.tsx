@@ -4,6 +4,7 @@
 import React, { useRef } from "react";
 import { Box, Button, Avatar, Typography, IconButton } from "@mui/material";
 import { Image as ImageIcon, X } from "lucide-react";
+import { COLORS } from "@/constants/theme";
 
 interface PhotoUploaderProps {
   photoData: string | null;
@@ -37,18 +38,28 @@ export default function PhotoUploader({
         alignItems: "center",
         gap: 2,
         p: 2,
-        border: `1.5px dashed ${error ? "red" : "#cbd5e1"}`,
+        border: `2px dashed ${error ? COLORS.asterisk : COLORS.border}`,
         borderRadius: 2,
         height: "100%",
         width: "100%",
         boxSizing: "border-box",
+        
+        "&:hover": {
+          borderColor: COLORS.navy,
+          bgcolor: "rgba(26, 41, 128, 0.04)",
+        },
       }}
     >
       <Avatar
         src={photoData || undefined}
         sx={{ width: 64, height: 64, bgcolor: "action.hover", flexShrink: 0 }}
       >
-        {!photoData && <ImageIcon size={28} color={error ? "red" : "#999"} />}
+        {!photoData && (
+          <ImageIcon
+            size={28}
+            color={error ? COLORS.asterisk : COLORS.textMuted}
+          />
+        )}
       </Avatar>
 
       <Box
@@ -64,35 +75,50 @@ export default function PhotoUploader({
           variant="subtitle2"
           sx={{
             fontWeight: 600,
-            color: "text.secondary",
-            fontSize: "clamp(0.75rem, 2vw, 0.875rem)",
-            mb: 1,
-            textAlign: "center",
+            color: COLORS.navy, 
+            fontSize: "0.875rem",
+            mb: 0.5,
+            textAlign: "left",
             alignSelf: "flex-start",
           }}
         >
-          Resume photo <br />
-          <Box sx={{ fontSize: "0.85em", fontWeight: 400 }}>
-            ( jpg, jpeg, png)
+          Resume photo{" "}
+          <Box
+            component="span"
+            sx={{
+              fontSize: "0.75rem",
+              fontWeight: 400,
+              color: COLORS.textMuted,
+              ml: 0.5,
+            }}
+          >
+            (jpg, jpeg, png)
           </Box>
         </Typography>
+
         <Box
           sx={{
             display: "flex",
             gap: 1,
             alignItems: "center",
             flexWrap: "wrap",
+            mt: 0.5,
           }}
         >
           <Button
             variant="outlined"
             size="small"
-            color={error ? "error" : "primary"}
             onClick={() => fileInputRef.current?.click()}
             sx={{
               fontWeight: 600,
               textTransform: "uppercase",
-              fontSize: "clamp(0.65rem, 2vw, 0.675rem)",
+              fontSize: "0.7rem",
+              color: COLORS.navy,
+              borderColor: COLORS.border,
+              "&:hover": {
+                borderColor: COLORS.navy,
+                bgcolor: "rgba(26, 41, 128, 0.04)",
+              },
             }}
           >
             {photoData ? "Change" : "Upload photo"}
@@ -105,7 +131,7 @@ export default function PhotoUploader({
               onClick={onClear}
               title="Delete photo"
             >
-              <X size={20} />
+              <X size={18} />
             </IconButton>
           )}
         </Box>

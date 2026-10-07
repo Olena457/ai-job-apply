@@ -1,6 +1,9 @@
+
 import { Box, Typography } from "@mui/material";
 import LogoIcon from "../ui/LogoIcon";
-import PasswordModal from "../ui/PasswordModal"; 
+import PasswordModal from "../ui/PasswordModal";
+import { COLORS, GRADIENTS } from "@/constants/theme";
+
 export default function Header() {
   return (
     <Box
@@ -27,12 +30,26 @@ export default function Header() {
         <Typography
           variant="h6"
           sx={{
-            fontWeight: 700,
-            color: "#1e293b",
+            fontWeight: 800,
+            color: COLORS.navy || "#1A2980",
             fontSize: { xs: "1.25rem", md: "1.5rem" },
+            letterSpacing: "-0.5px",
           }}
         >
-          AI Smart Applier
+          <Box
+            component="span"
+            sx={{
+              background:
+                GRADIENTS.mainButtonAnimated ||
+                "linear-gradient(to right, #1A2980 0%, #26D0CE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              mr: 0.5,
+            }}
+          >
+            AI
+          </Box>
+          Smart Applier
         </Typography>
       </Box>
 

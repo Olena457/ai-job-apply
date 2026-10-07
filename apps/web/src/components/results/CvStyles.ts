@@ -1,6 +1,5 @@
 import { Font, StyleSheet } from "@react-pdf/renderer";
 
-// Реєструємо шрифти один раз
 Font.register({
   family: "Roboto",
   fonts: [
@@ -56,10 +55,12 @@ export const styles = StyleSheet.create({
 
   rightColumn: { width: "68%", padding: "20px 20px 20px 15px", color: "#222" },
   name: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: 700,
     textTransform: "uppercase",
     color: "#333",
+    lineHeight: 1.1,     
+    marginBottom: 4,
   },
   headline: {
     fontSize: 10,

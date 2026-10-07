@@ -1,9 +1,11 @@
 
+
 "use client";
 
 import { ChangeEvent } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { Upload, FileText } from "lucide-react";
+import { Download, FileText } from "lucide-react";
+import { COLORS } from "@/constants/theme";
 
 interface FileUploaderProps {
   cvFile: File | null;
@@ -19,26 +21,30 @@ export default function FileUploader({
       <Button
         component="label"
         variant="outlined"
-        startIcon={<Upload size={18} />}
+        startIcon={<Download size={18} style={{ color: COLORS.navy }} />}
         fullWidth
         sx={{
           py: 1.5,
           px: 1, 
           textTransform: "none",
           borderStyle: "dashed",
-          borderColor: cvFile ? "#1976d2" : "#cbd5e1",
-          color:"#1976d2",
-          borderWidth: 1.5,
+          borderColor: cvFile ? COLORS.navy : COLORS.border,
+          color: COLORS.navy, 
+          borderWidth: 2,
           fontWeight: 600,
-          fontSize: "clamp(0.7rem, 2.5vw, 0.675rem)",
+          fontSize: "0.875rem",
           whiteSpace: "nowrap",
+          "&:hover": {
+            borderColor: COLORS.navy,
+            bgcolor: "rgba(26, 41, 128, 0.04)",
+          },
         }}
       >
         {cvFile ? (
           "Change File"
         ) : (
           <>
-            Upload Your Current CV PDF File <span style={{ color: "#d32f2f", marginLeft: "4px" }}>*</span>
+            Upload Your Current CV PDF File <span style={{ color: COLORS.asterisk, marginLeft: "4px" }}>*</span>
           </>
         )}
         <input
@@ -57,16 +63,17 @@ export default function FileUploader({
           sx={{
             mt: 1.5,
             alignItems: "center",
-            color: "text.secondary",
+            color: COLORS.textMuted,
             minWidth: 0, 
           }}
         >
-          <FileText size={16} style={{ flexShrink: 0 }} />
+          <FileText size={16} style={{ flexShrink: 0, color: COLORS.navy }} />
           <Typography
             variant="body2"
             noWrap 
             sx={{
-              fontSize: "clamp(0.7rem, 2vw, 0.95rem)",
+              fontSize: "0.85rem",
+              color: COLORS.textPrimary,
             }}
           >
             {cvFile.name}
