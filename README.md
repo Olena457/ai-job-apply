@@ -17,8 +17,33 @@ This application completely automates the job application routine, reducing prep
 
 A professional backend application built with **NestJS**, designed for rapid deployment and scalability. The project integrates advanced AI capabilities using **LangChain**, **langgraph** supports **OpenAI** and **Google GenAI** models, and includes tools for PDF document analysis and intelligent web search. 
 
-
 ---
+
+
+## *screenshots*
+
+
+<div style="display: flex; flex-wrap: wrap; gap: 15px;">
+
+  <img src="./apps/web/public/photo-0.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 0"/>
+  <img src="./apps/web/public/photo-1.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 1"/>
+  <img src="./apps/web/public/photo-2.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 2"/>
+  <img src="./apps/web/public/photo-3.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 3"/>
+  <img src="./apps/web/public/photo-4.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 4"/>
+  <img src="./apps/web/public/photo-41.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 41"/>
+  <img src="./apps/web/public/photo-5.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 5"/>
+  
+  <img src="./apps/web/public/photo-6.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 6"/>
+  
+  <img src="./apps/web/public/photo-7.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 7"/>
+   
+  <img src="./apps/web/public/photo-11.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 11"/>
+  <img src="./apps/web/public/photo-10.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 10"/>
+  
+ 
+  <div>
+
+  ---
 
 ## 🛠 Tech Stack
 
