@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import type { TailoredCv } from "../../types/analysis";
+import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
+
 
 interface DownloadCvButtonProps {
   cv: TailoredCv;
@@ -48,7 +50,32 @@ export default function DownloadCvButton({
       onClick={handleDownload}
       disabled={busy}
       fullWidth
-      sx={{ mt: 2, py: 1.5, fontWeight: "bold", borderRadius: 2 }}
+      sx={{
+        mt: 2, 
+        py: 1.2,
+        px: 3,
+        fontWeight: 700,
+        fontSize: "1.05rem",
+        textTransform: "none",
+        borderRadius: 2,
+        background: GRADIENTS.mainButtonAnimated,
+        backgroundSize: "200% auto",
+        color: COLORS.lightBg,
+        boxShadow: SHADOWS.btnGrad,
+        transition: "0.5s ease",
+
+        "&:hover": {
+          backgroundPosition: "right center",
+          boxShadow: SHADOWS.btnGradHover,
+        },
+
+        "&.Mui-disabled": {
+          background: COLORS.disabledBg,
+          color: COLORS.textMuted,
+          boxShadow: "none",
+          backgroundSize: "auto",
+        },
+      }}
     >
       {busy ? "Generating PDF..." : "Download Tailored CV"}
     </Button>

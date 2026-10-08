@@ -155,21 +155,22 @@ export default function ApplicationForm() {
                 fontSize: "1.05rem",
                 textTransform: "none",
                 borderRadius: 2,
-                background: GRADIENTS.blue,
+                background: GRADIENTS.mainButtonAnimated,
+                backgroundSize: "200% auto", 
                 color: COLORS.lightBg,
-                transition: "all 0.2s ease",
+                boxShadow: SHADOWS.btnGrad,
+                transition: "0.5s ease", 
 
                 "&:hover": {
-                  background: GRADIENTS.blueHover,
-                  boxShadow: SHADOWS.buttonHover,
-                  transform: "translateY(-1px)",
+                  backgroundPosition: "right center", 
+                  boxShadow: SHADOWS.btnGradHover,
                 },
 
                 "&.Mui-disabled": {
                   background: COLORS.disabledBg,
                   color: COLORS.textMuted,
                   boxShadow: "none",
-                  transform: "none",
+                  backgroundSize: "auto", 
                 },
               }}
             >
