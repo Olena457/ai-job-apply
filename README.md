@@ -18,7 +18,7 @@ This application completely automates the job application routine, reducing prep
 A professional backend application built with **NestJS**, designed for rapid deployment and scalability. The project integrates advanced AI capabilities using **LangChain**, **langgraph** supports **OpenAI** and **Google GenAI** models, and includes tools for PDF document analysis and intelligent web search. 
 
 ---
-## 📐 Application Architecture & Workflow
+
 
 ### 🔄 System Workflow Diagram
 
