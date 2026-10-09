@@ -40,6 +40,10 @@ A professional backend application built with **NestJS**, designed for rapid dep
   <img src="./apps/web/public/photo-11.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 11"/>
   <img src="./apps/web/public/photo-10.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 10"/>
   
+  <img src="./apps/web/public/photo-10.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 10"/>
+  
+  <img src="./apps/web/public/photo-12.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 12"/>
+  
  
   <div>
 
