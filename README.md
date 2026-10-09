@@ -18,7 +18,48 @@ This application completely automates the job application routine, reducing prep
 A professional backend application built with **NestJS**, designed for rapid deployment and scalability. The project integrates advanced AI capabilities using **LangChain**, **langgraph** supports **OpenAI** and **Google GenAI** models, and includes tools for PDF document analysis and intelligent web search. 
 
 ---
+## 📐 Application Architecture & Workflow
 
+### 🔄 System Workflow Diagram
+
+```text
+User Actions:
+1. Provide Resume (Text or PDF)
+2. Input Job Description & Company Name or company Url
+3. Run Full AI Analysis & Generation
+       │
+       ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                          NESTJS API ROUTER                              │
+└─────────────────────────────────────────────────────────────────────────┘
+       │
+       ├───────────────────┬───────────────────┬───────────────────┐
+       ▼                   ▼                   ▼                   ▼
+┌───────────────┐   ┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+│  MATCH GRAPH  │   │COMPANY RESEARCH│  │ COVER LETTER  │   │ TAILORED CV   │
+│  (LangGraph)  │   │ (Tavily API)  │   │  (LangGraph)  │   │  (LangGraph)  │
+└───────────────┘   └───────────────┘   └───────────────┘   └───────────────┘
+       │                   │                   │                   │
+       ├─ Score (0-100%)   ├─ Industry & Size  ├─ Custom Letter    ├─ Optimized Bullets
+       └─ Skill Gap        └─ Red Flags        └─ Job Keywords     └─ Tailored PDF CV
+       │                   │                   │                   │
+       └───────────────────┴─────────┬─────────┴───────────────────┘
+                                     │
+                                     ▼
+                      ┌──────────────────────────────┐
+                      │    LLM WITH TIMEOUT &        │
+                      │       FALLBACK ENGINE        │
+                      │  Primary: Gemini 1.5 Flash   │
+                      │  Fallback: Mistral 12B       │
+                      └──────────────────────────────┘
+                                     │
+                                     ▼
+                      ┌──────────────────────────────┐
+                      │    GOOGLE SHEETS TRACKER     │
+                      │ (Auto-logs Job & Result Data)│
+                      └──────────────────────────────┘
+
+```                      
 
 ## *screenshots*
 
