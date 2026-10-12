@@ -5,6 +5,7 @@ import {
   UploadedFile,
   UseInterceptors,
   BadRequestException,
+  Headers,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AnalysisService } from './analysis.service';
@@ -22,6 +23,9 @@ export class AnalysisController {
     @UploadedFile() file: Express.Multer.File,
     @Body('jobDescription') jobDescription: string,
     @Body('companyName') companyName?: string,
+    @Headers('x-gemini-api-key') geminiKey?: string,
+    @Headers('x-tavily-api-key') tavilyKey?: string,
+    @Headers('x-openrouter-api-key') openRouterKey?: string,
   ) {
     if (!file || !jobDescription) {
       throw new BadRequestException(
@@ -54,6 +58,11 @@ export class AnalysisController {
       jobDescription,
       cvText,
       companyName,
+      apiKeys: {
+        geminiKey,
+        tavilyKey,
+        openRouterKey,
+      },
     });
   }
 
@@ -64,6 +73,9 @@ export class AnalysisController {
     @Body('job') job: JobInfo,
     @Body('company') company: CompanyReport,
     @Body('match') match: Match,
+    @Headers('x-gemini-api-key') geminiKey?: string,
+    @Headers('x-tavily-api-key') tavilyKey?: string,
+    @Headers('x-openrouter-api-key') openRouterKey?: string,
   ) {
     if (!cvText || !jobDescription || !match) {
       throw new BadRequestException(
@@ -77,6 +89,11 @@ export class AnalysisController {
       job,
       company,
       match,
+      apiKeys: {
+        geminiKey,
+        tavilyKey,
+        openRouterKey,
+      },
     });
   }
 
@@ -86,6 +103,9 @@ export class AnalysisController {
     @Body('jobDescription') jobDescription: string,
     @Body('job') job: JobInfo,
     @Body('match') match: Match,
+    @Headers('x-gemini-api-key') geminiKey?: string,
+    @Headers('x-tavily-api-key') tavilyKey?: string,
+    @Headers('x-openrouter-api-key') openRouterKey?: string,
   ) {
     if (!cvText || !jobDescription || !match) {
       throw new BadRequestException('Missing required data for CV tailoring');
@@ -96,6 +116,11 @@ export class AnalysisController {
       jobDescription,
       job,
       match,
+      apiKeys: {
+        geminiKey,
+        tavilyKey,
+        openRouterKey,
+      },
     });
   }
 }

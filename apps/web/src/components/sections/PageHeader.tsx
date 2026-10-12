@@ -1,7 +1,7 @@
 
 import { Box, Typography } from "@mui/material";
 import LogoIcon from "../ui/LogoIcon";
-import PasswordModal from "../ui/PasswordModal";
+import SettingsModal from "../ui/SettingsModal";
 import { COLORS, GRADIENTS } from "@/constants/theme";
 
 export default function Header() {
@@ -53,7 +53,7 @@ export default function Header() {
         </Typography>
       </Box>
 
-      <PasswordModal />
+      <SettingsModal />
     </Box>
   );
 }

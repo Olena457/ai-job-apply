@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 export class ApplicationData {
@@ -20,9 +20,19 @@ export class GoogleSheetsService {
     this.scriptUrl = this.configService.get<string>('GOOGLE_SCRIPT_URL') || '';
   }
 
-  async saveApplication(data: ApplicationData): Promise<SheetsResponse> {
+  async saveApplication(
+    data: ApplicationData,
+    customUrl?: string,
+  ): Promise<SheetsResponse> {
+    const targetUrl = customUrl?.trim() || this.scriptUrl;
+    if (!targetUrl) {
+      throw new BadRequestException(
+        'Google Sheets script URL is not configured. Please add your script URL in settings.',
+      );
+    }
+
     try {
-      const response = await fetch(this.scriptUrl, {
+      const response = await fetch(targetUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -34,20 +44,27 @@ export class GoogleSheetsService {
       return (await response.json()) as SheetsResponse;
     } catch (error) {
       this.logger.error('Failed to save to Google Sheets', error);
-      throw new Error('Could not save data');
+      throw new Error('Could not save data to Google Sheets');
     }
   }
 
-  async getRecentApplications(): Promise<any[]> {
+  async getRecentApplications(customUrl?: string): Promise<any[]> {
+    const targetUrl = customUrl?.trim() || this.scriptUrl;
+    if (!targetUrl) {
+      throw new BadRequestException(
+        'Google Sheets script URL is not configured.',
+      );
+    }
+
     try {
-      const response = await fetch(this.scriptUrl, {
+      const response = await fetch(targetUrl, {
         method: 'GET',
       });
 
       return (await response.json()) as any[];
     } catch (error) {
       this.logger.error('Failed to fetch from Google Sheets', error);
-      throw new Error('Could not fetch data');
+      throw new Error('Could not fetch data from Google Sheets');
     }
   }
 }

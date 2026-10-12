@@ -5,8 +5,6 @@ import { AppState } from '../state';
 import { CompanySchema, CompanyReport } from '../schemas';
 import { config } from '../config';
 
-const tavilyClient = tavily({ apiKey: config.TAVILY_API_KEY });
-
 const UNKNOWN_COMPANY: CompanyReport = {
   summary: 'No public information found.',
   website: 'unknown',
@@ -28,8 +26,17 @@ export async function researchNode(s: AppState) {
     return { company: UNKNOWN_COMPANY };
   }
 
+  const tavilyApiKey = s.apiKeys?.tavilyKey?.trim() || config.TAVILY_API_KEY;
+  if (!tavilyApiKey) {
+    console.log(
+      '[Tavily Research] No Tavily API key provided, skipping company research.',
+    );
+    return { company: UNKNOWN_COMPANY };
+  }
+
   console.log(`[Tavily Research] Searching info for company: "${name}"...`);
 
+  const tavilyClient = tavily({ apiKey: tavilyApiKey });
   const isUrl = name.startsWith('http') || name.includes('/');
   const queryName = isUrl ? `company at ${name}` : `${name} company`;
 
@@ -71,7 +78,7 @@ export async function researchNode(s: AppState) {
       ['human', 'Company: {name}\n\nSearch context:\n{context}'],
     ]);
 
-    const chain = prompt.pipe(getStructuredLlm(CompanySchema));
+    const chain = prompt.pipe(getStructuredLlm(CompanySchema, s.apiKeys));
     const company = (await chain.invoke({ name, context })) as CompanyReport;
 
     return { company };

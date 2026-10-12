@@ -19,16 +19,23 @@ export class PasswordGuard implements CanActivate {
       return true;
     }
 
+    const userGeminiKey = request.headers['x-gemini-api-key'] as string | undefined;
+    if (userGeminiKey && userGeminiKey.trim().length >= 10) {
+      return true;
+    }
+
     const expected = this.config.get<string>('APP_PASSWORD') || '';
     const received = request.headers['x-app-password'] as string | undefined;
 
-    if (!expected) {
+    if (!expected && !userGeminiKey) {
       throw new UnauthorizedException('Server password not configured');
     }
 
     if (received && received === expected) {
       return true;
     }
-    throw new UnauthorizedException('Invalid password');
+    throw new UnauthorizedException(
+      'Access requires admin password or your own Gemini API Key',
+    );
   }
 }

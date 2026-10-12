@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button, CircularProgress, Alert, Snackbar } from "@mui/material";
 import { TableProperties } from "lucide-react";
 import { saveToGoogleSheets } from "../../lib/api";
+import { isSheetsConfigured } from "@/lib/keysStorage";
 import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
 
 interface SaveToSheetsButtonProps {
@@ -25,6 +26,13 @@ export default function SaveToSheetsButton({
   const [error, setError] = useState<string | null>(null);
 
   const handleSave = async () => {
+    if (!isSheetsConfigured()) {
+      setError(
+        "Щоб зберігати відгуки, додайте посилання на свій Google Apps Script у налаштуваннях (⚙️ у шапці сайту).",
+      );
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {

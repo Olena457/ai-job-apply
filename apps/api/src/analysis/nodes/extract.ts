@@ -12,7 +12,7 @@ export async function extractNode(s: AppState) {
     ['human', 'Job posting:\n{jobDescription}'],
   ]);
 
-  const chain = prompt.pipe(getStructuredLlm(JobSchema));
+  const chain = prompt.pipe(getStructuredLlm(JobSchema, s.apiKeys));
   const job = (await chain.invoke({
     jobDescription: s.jobDescription,
   })) as JobInfo;

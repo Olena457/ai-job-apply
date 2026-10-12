@@ -1,6 +1,6 @@
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
-import { llm } from '../llm';
+import { getLlm } from '../llm';
 import { AppState } from '../state';
 
 export async function coverLetterNode(s: AppState) {
@@ -25,7 +25,7 @@ export async function coverLetterNode(s: AppState) {
     ],
   ]);
 
-  const chain = prompt.pipe(llm).pipe(new StringOutputParser());
+  const chain = prompt.pipe(getLlm(s.apiKeys)).pipe(new StringOutputParser());
   const letter = await chain.invoke({
     job: JSON.stringify(s.job),
     matched: s.match?.matchedSkills?.join(', ') || '',

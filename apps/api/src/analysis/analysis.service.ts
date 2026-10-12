@@ -5,11 +5,13 @@ import {
   buildTailoredCvGraph,
 } from './graph';
 import { CompanyReport, JobInfo, Match } from './schemas';
+import { ApiKeysConfig } from './state';
 
 export interface MatchParams {
   jobDescription: string;
   cvText: string;
   companyName?: string;
+  apiKeys?: ApiKeysConfig;
 }
 
 export interface CoverLetterParams {
@@ -19,6 +21,7 @@ export interface CoverLetterParams {
   job?: JobInfo;
   company?: CompanyReport;
   match?: Match;
+  apiKeys?: ApiKeysConfig;
 }
 
 export interface TailoredCvParams {
@@ -27,6 +30,7 @@ export interface TailoredCvParams {
   companyName?: string;
   job?: JobInfo;
   match?: Match;
+  apiKeys?: ApiKeysConfig;
 }
 
 @Injectable()
@@ -38,6 +42,7 @@ export class AnalysisService {
         jobDescription: params.jobDescription,
         cvText: params.cvText,
         companyName: params.companyName,
+        apiKeys: params.apiKeys,
       });
 
       return result;
@@ -59,6 +64,7 @@ export class AnalysisService {
         job: params.job,
         company: params.company,
         match: params.match,
+        apiKeys: params.apiKeys,
       });
 
       return result;
@@ -79,6 +85,7 @@ export class AnalysisService {
         companyName: params.companyName,
         job: params.job,
         match: params.match,
+        apiKeys: params.apiKeys,
       });
 
       return result;

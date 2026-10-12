@@ -24,7 +24,7 @@ export async function tailorCvNode(s: AppState) {
     ],
   ]);
 
-  const chain = prompt.pipe(getStructuredLlm(TailoredCvSchema));
+  const chain = prompt.pipe(getStructuredLlm(TailoredCvSchema, s.apiKeys));
   const tailoredCv = (await chain.invoke({
     job: JSON.stringify(s.job),
     matched: s.match?.matchedSkills?.join(', ') || '',

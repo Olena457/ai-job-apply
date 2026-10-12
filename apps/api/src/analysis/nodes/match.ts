@@ -12,7 +12,7 @@ export async function matchNode(s: AppState) {
     ['human', 'JOB POSTING:\n{jobDescription}\n\nCV:\n{cvText}'],
   ]);
 
-  const chain = prompt.pipe(getStructuredLlm(MatchSchema));
+  const chain = prompt.pipe(getStructuredLlm(MatchSchema, s.apiKeys));
   const result = (await chain.invoke({
     jobDescription: s.jobDescription,
     cvText: s.cvText,

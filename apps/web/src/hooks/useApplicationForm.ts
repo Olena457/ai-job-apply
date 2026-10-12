@@ -3,8 +3,9 @@
 
 import { useState, ChangeEvent, SubmitEvent } from "react";
 import { analyzeMatch } from "../lib/api";
-import type { AnalysisResponse } from "../../src/types/analysis";
+import type { AnalysisResponse } from "@/types/analysis";
 import { usePhotoForm } from "./usePhotoForm";
+import { isAppConfigured } from "../lib/keysStorage";
 
 export function useApplicationForm() {
   const [jobDescription, setJobDescription] = useState("");
@@ -40,14 +41,11 @@ export function useApplicationForm() {
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const password =
-      typeof window !== "undefined" ? localStorage.getItem("appPassword") : "";
-
-    if (!password || !password.trim()) {
+    if (!isAppConfigured()) {
       setError(
-        "Please enter the access password by clicking the lock icon in the header.",
+        "Будь ласка, додайте свій Gemini API Key або введіть пароль у налаштуваннях (⚙️ у шапці сайту).",
       );
-      return; 
+      return;
     }
 
     if (!cvFile) return;
