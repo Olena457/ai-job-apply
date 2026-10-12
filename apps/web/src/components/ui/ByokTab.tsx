@@ -106,10 +106,7 @@ export default function ByokTab({
             variant="subtitle2"
             sx={{ fontWeight: 600, color: COLORS.navy }}
           >
-            Tavily API Key{" "}
-            <span style={{ color: COLORS.textMuted, fontSize: "0.75rem" }}>
-              (recommended)
-            </span>
+            Tavily API Key <span style={{ color: COLORS.asterisk }}>*</span>
           </Typography>
           <Link
             href="https://tavily.com"
