@@ -11,18 +11,7 @@ import {
 } from "@mui/material";
 import { Eye, EyeOff, ExternalLink } from "lucide-react";
 import { COLORS } from "@/constants/theme";
-import { UserApiKeys } from "@/lib/keysStorage";
-
-interface ByokTabProps {
-  keys: UserApiKeys;
-  updateKey: (field: keyof UserApiKeys, value: string) => void;
-  showGemini: boolean;
-  setShowGemini: (val: boolean) => void;
-  showTavily: boolean;
-  setShowTavily: (val: boolean) => void;
-  showOpenRouter: boolean;
-  setShowOpenRouter: (val: boolean) => void;
-}
+import { ByokTabProps } from "@/types/settings";
 
 export default function ByokTab({
   keys,
@@ -40,7 +29,8 @@ export default function ByokTab({
         severity="info"
         sx={{ borderRadius: 2, fontSize: "0.825rem", py: 0.5 }}
       >
-        Your API keys are stored <strong>only in your browser</strong> and sent directly for processing.
+        Your API keys are stored <strong>only in your browser</strong> and sent
+        directly for processing.
       </Alert>
 
       {/* Gemini API Key */}

@@ -1,3 +1,12 @@
+import { UserApiKeys } from "@/lib/keysStorage";
+
+export interface AdminTabProps {
+  keys: UserApiKeys;
+  updateKey: (field: keyof UserApiKeys, value: string) => void;
+  showPassword: boolean;
+  setShowPassword: (val: boolean) => void;
+}
+
 export interface JobInfo {
   companyName: string;
   jobTitle: string;

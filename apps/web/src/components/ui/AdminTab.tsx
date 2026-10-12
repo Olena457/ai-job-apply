@@ -10,14 +10,7 @@ import {
 } from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
 import { COLORS } from "@/constants/theme";
-import { UserApiKeys } from "@/lib/keysStorage";
-
-interface AdminTabProps {
-  keys: UserApiKeys;
-  updateKey: (field: keyof UserApiKeys, value: string) => void;
-  showPassword: boolean;
-  setShowPassword: (val: boolean) => void;
-}
+import { AdminTabProps } from "@/types/settings";
 
 export default function AdminTab({
   keys,
@@ -31,7 +24,8 @@ export default function AdminTab({
         severity="warning"
         sx={{ borderRadius: 2, fontSize: "0.825rem", py: 0.5 }}
       >
-        This section is for the application owner. Entering the administrator password enables pre-configured server-side API keys.
+        This section is for the application owner. Entering the administrator
+        password enables pre-configured server-side API keys.
       </Alert>
 
       <Box>

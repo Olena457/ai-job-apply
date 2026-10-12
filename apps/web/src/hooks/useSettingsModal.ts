@@ -12,6 +12,7 @@ export function useSettingsModal() {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [configured, setConfigured] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const [keys, setKeys] = useState<UserApiKeys>({
     geminiApiKey: "",
@@ -27,33 +28,35 @@ export function useSettingsModal() {
   const [showPassword, setShowPassword] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Sync keys and configured state from localStorage
-  const syncState = useCallback(() => {
-    if (typeof window === "undefined") return;
+  useEffect(() => {
     const stored = getUserApiKeys();
-    setKeys(stored);
-    setConfigured(isAppConfigured());
-    if (stored.appPassword && !stored.geminiApiKey) {
-      setActiveTab(1);
-    }
+    const appConfigured = isAppConfigured();
+
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+      setKeys(stored);
+      setConfigured(appConfigured);
+      if (stored.appPassword && !stored.geminiApiKey) {
+        setActiveTab(1);
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Run on mount
-  useEffect(() => {
-    syncState();
-  }, [syncState]);
-
-  // Run when dialog opens
-  useEffect(() => {
-    if (open) {
-      syncState();
-    }
-  }, [open, syncState]);
-
   const handleOpen = useCallback(() => {
-    syncState();
+    if (typeof window !== "undefined") {
+      const stored = getUserApiKeys();
+      setKeys(stored);
+      setConfigured(isAppConfigured());
+      if (stored.appPassword && !stored.geminiApiKey) {
+        setActiveTab(1);
+      } else {
+        setActiveTab(0);
+      }
+    }
     setOpen(true);
-  }, [syncState]);
+  }, []);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -95,7 +98,7 @@ export function useSettingsModal() {
     handleClose,
     activeTab,
     setActiveTab,
-    configured,
+    configured: isMounted ? configured : false,
     keys,
     setKeys,
     updateKey,
