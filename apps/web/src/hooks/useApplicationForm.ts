@@ -43,7 +43,7 @@ export function useApplicationForm() {
 
     if (!isAppConfigured()) {
       setError(
-        "Будь ласка, додайте свій Gemini API Key або введіть пароль у налаштуваннях (⚙️ у шапці сайту).",
+        "Please enter your Gemini API Key or admin password in Settings (⚙️ in header).",
       );
       return;
     }

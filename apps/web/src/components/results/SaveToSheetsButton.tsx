@@ -28,7 +28,7 @@ export default function SaveToSheetsButton({
   const handleSave = async () => {
     if (!isSheetsConfigured()) {
       setError(
-        "Щоб зберігати відгуки, додайте посилання на свій Google Apps Script у налаштуваннях (⚙️ у шапці сайту).",
+        "To record applications, please add your Google Apps Script URL in Settings (⚙️ in header).",
       );
       return;
     }
