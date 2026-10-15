@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -9,7 +10,6 @@ import {
   CircularProgress,
   Paper,
   Stack,
-  TextField,
 } from "@mui/material";
 import { Sparkles } from "lucide-react";
 import { useApplicationForm } from "../../hooks/useApplicationForm";
@@ -18,6 +18,7 @@ import PhotoUploader from "../ui/PhotoUploader";
 import AnalysisResult from "../results/AnalysisResult";
 import AiLoader from "../ui/AiLoader";
 import CompanyInput from "../ui/CompanyInput";
+import JobDescriptionInput from "../ui/JobDescriptionInput";
 import ThemeColorPicker from "./ThemeColorPicker";
 import { COLORS, GRADIENTS, SHADOWS } from "@/constants/theme";
 
@@ -71,41 +72,9 @@ export default function ApplicationForm() {
               </Box>
             </Stack>
 
-            <TextField
-              id="jobDescription"
-              label="Job Description or Requirements"
-              placeholder="Paste the full job description here..."
-              multiline
-              rows={3}
+            <JobDescriptionInput
               value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              required
-              fullWidth
-              sx={{
-                "& .MuiFormLabel-asterisk": {
-                  color: COLORS.asterisk || "#d32f2f",
-                },
-                "& .MuiOutlinedInput-root": {
-                  fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
-                  "& fieldset": {
-                    borderColor: COLORS.border || "#cbd5e1",
-                    borderWidth: "1.5px",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: COLORS.borderHover || "#94a3b8",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: COLORS.navy || "#1A2980",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
-                  color: "text.secondary",
-                  "&.Mui-focused": {
-                    color: COLORS.navy || "#1A2980",
-                  },
-                },
-              }}
+              onChange={setJobDescription}
             />
 
             <Stack

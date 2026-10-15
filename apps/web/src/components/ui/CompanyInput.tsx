@@ -1,5 +1,6 @@
 
-import { TextField } from "@mui/material";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
+import { X } from "lucide-react";
 import { COLORS } from "@/constants/theme"; 
 
 interface CompanyInputProps {
@@ -18,6 +19,26 @@ export default function CompanyInput({ value, onChange }: CompanyInputProps) {
       fullWidth
       variant="outlined"
       required
+      slotProps={{
+        input: {
+          endAdornment: value ? (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="clear company name"
+                onClick={() => onChange("")}
+                edge="end"
+                size="small"
+                sx={{
+                  color: "text.secondary",
+                  "&:hover": { color: COLORS.navy || "#1A2980" },
+                }}
+              >
+                <X size={18} />
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+        },
+      }}
       sx={{
         "& .MuiFormLabel-asterisk": {
           color: COLORS.asterisk || "#d32f2f",
