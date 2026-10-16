@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { ChangeEvent } from "react";
@@ -21,19 +19,22 @@ export default function FileUploader({
       <Button
         component="label"
         variant="outlined"
-        startIcon={<Download size={18} style={{ color: COLORS.navy }} />}
+        startIcon={<Download size={18} style={{ color: COLORS.navy, flexShrink: 0 }} />}
         fullWidth
         sx={{
           py: 1.5,
-          px: 1, 
+          px: { xs: 0.5, sm: 1 }, 
           textTransform: "none",
           borderStyle: "dashed",
           borderColor: cvFile ? COLORS.navy : COLORS.border,
           color: COLORS.navy, 
           borderWidth: 2,
-          fontWeight: 600,
-          fontSize: "0.875rem",
-          whiteSpace: "nowrap",
+          fontWeight: 650,
+          fontSize: "clamp(0.7rem, 2.2vw, 0.875rem)",
+          lineHeight: 1.3,
+          textAlign: "center",
+          whiteSpace: "normal", 
+          wordBreak: "break-word",
           "&:hover": {
             borderColor: COLORS.navy,
             bgcolor: "rgba(26, 41, 128, 0.04)",
@@ -44,7 +45,7 @@ export default function FileUploader({
           "Change File"
         ) : (
           <>
-            Upload Your Current CV PDF File <span style={{ color: COLORS.asterisk, marginLeft: "4px" }}>*</span>
+            Upload Your Current CV PDF File <span style={{ color: COLORS.asterisk, marginLeft: "2px" }}>*</span>
           </>
         )}
         <input
