@@ -1,4 +1,4 @@
-#  AI-Powered API 
+#  AI-Job Apply
 
 ## About the Project
 
