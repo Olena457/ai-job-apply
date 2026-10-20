@@ -59,10 +59,10 @@ User Actions:
                       │ (Auto-logs Job & Result Data)│
                       └──────────────────────────────┘
 
-```                      
+```  
+                    
 
 ## *screenshots*
-
 
 <div style="display: flex; flex-wrap: wrap; gap: 15px;">
 
@@ -82,12 +82,11 @@ User Actions:
 
   <img src="./apps/web/public/photo-10.jpg" style="width: 30%; height: 150px; object-fit: cover;" alt="photo 10"/>
   
- 
   <div>
 
   ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 **Core Application:**
 
@@ -96,9 +95,9 @@ User Actions:
 *   **Validation & Typing:** Zod
 *   
 
-**Artificial Intelligence & Integrations:**
+**Artificial Intelligence Integrations:**
 
-*   **Orchestration:** LangChain (`@langchain/core`, `langgraph`)
+*   **Orchestration:** LangChain (`@langchain/core`,`langgraph`)
 *   **LLM Providers:** OpenAI, Google GenAI
 *   **AI Web Search:** Tavily API (`@tavily/core`)
 *   **Data Parsing:** `pdf-parse` (text extraction from PDF files)
@@ -113,6 +112,8 @@ User Actions:
 ##  Installation & Running
 
 **1. Clone the repository and install dependencies:**
+
+
 ```bash
 # Install packages
 npm install
