@@ -24,8 +24,10 @@ export interface CompanyReport {
   values: string[];
   competitors: string[];
   reviewsSummary: string;
+  greenFlags?: string[];
   redFlags: string[];
   sources: string[];
+  rating?: string;
 }
 
 export interface Match {
