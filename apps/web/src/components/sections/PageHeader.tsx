@@ -1,7 +1,9 @@
+"use client";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import LogoIcon from "../ui/LogoIcon";
 import SettingsModal from "../ui/SettingsModal";
+import HistoryModal from "../ui/HistoryModal"; 
 import { COLORS, GRADIENTS } from "@/constants/theme";
 
 export default function Header() {
@@ -53,8 +55,10 @@ export default function Header() {
         </Typography>
       </Box>
 
-      <SettingsModal />
+      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <HistoryModal />
+        <SettingsModal />
+      </Stack>
     </Box>
   );
 }
-
