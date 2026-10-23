@@ -10,67 +10,17 @@ import {
   Box,
   Typography,
   Stack,
-  Chip,
   CircularProgress,
 } from "@mui/material";
-import { History, X, ExternalLink, RefreshCw } from "lucide-react";
+import { History, X, RefreshCw } from "lucide-react";
 import { COLORS, SHADOWS } from "@/constants/theme";
-import { getUserApiKeys } from "@/lib/keysStorage";
-
-interface ApplicationRecord {
-  companyName: string;
-  jobTitle?: string;
-  jobUrl?: string;
-  matchScore: number;
-  date?: string;
-}
+import { useHistory } from "@/hooks/useHistory";
+import { ApplicationRecord } from "@/types/history"; 
+import HistoryItem from "./HistoryItem";
 
 export default function HistoryModal() {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [history, setHistory] = useState<ApplicationRecord[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchHistory = async () => {
-    const { googleScriptUrl } = getUserApiKeys();
-
-    if (!googleScriptUrl) {
-      setError("Google Sheets URL is not configured in Settings.");
-      loadFromLocalStorage();
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const res = await fetch(googleScriptUrl);
-      if (!res.ok) throw new Error("Failed to fetch history");
-      const data = await res.json();
-      const parsedData = Array.isArray(data) ? data : [];
-      setHistory(parsedData);
-      localStorage.setItem("app_history", JSON.stringify(parsedData));
-    } catch {
-      loadFromLocalStorage();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadFromLocalStorage = () => {
-    const localData = localStorage.getItem("app_history");
-    if (localData) {
-      try {
-        setHistory(JSON.parse(localData));
-      } catch {
-        setError(
-          "Could not fetch history from Google Sheets or local storage.",
-        );
-      }
-    } else {
-      setError("No saved history found.");
-    }
-  };
+  const { history, loading, error, fetchHistory } = useHistory();
 
   const handleOpen = () => {
     setOpen(true);
@@ -141,70 +91,12 @@ export default function HistoryModal() {
             </Box>
           ) : history.length === 0 ? (
             <Box sx={{ textAlign: "center", py: 4, color: "text.secondary" }}>
-              <Typography variant="body2">
-                No saved applications found.
-              </Typography>
+              <Typography variant="body2">No saved history found.</Typography>
             </Box>
           ) : (
             <Stack spacing={1.5}>
-              {history.map((item, idx) => (
-                <Box
-                  key={idx}
-                  sx={{
-                    p: 2,
-                    borderRadius: 2,
-                    border: `1px solid ${COLORS.border}`,
-                    bgcolor: "background.paper",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box sx={{ minWidth: 0, pr: 1 }}>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{ fontWeight: 700 }}
-                      noWrap
-                    >
-                      {item.companyName}
-                    </Typography>
-                    {item.jobTitle && (
-                      <Typography variant="body2" color="text.secondary" noWrap>
-                        {item.jobTitle}
-                      </Typography>
-                    )}
-                    {item.date && (
-                      <Typography variant="caption" color="text.disabled">
-                        {item.date}
-                      </Typography>
-                    )}
-                  </Box>
-
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ alignItems: "center" }}
-                  >
-                    <Chip
-                      label={`${item.matchScore}%`}
-                      size="small"
-                      color={item.matchScore >= 70 ? "success" : "default"}
-                      variant="outlined"
-                      sx={{ fontWeight: 700 }}
-                    />
-                    {item.jobUrl && item.jobUrl.startsWith("http") && (
-                      <IconButton
-                        size="small"
-                        component="a"
-                        href={item.jobUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ExternalLink size={16} />
-                      </IconButton>
-                    )}
-                  </Stack>
-                </Box>
+              {history.map((item: ApplicationRecord, idx: number) => (
+                <HistoryItem key={idx} item={item} />
               ))}
             </Stack>
           )}
