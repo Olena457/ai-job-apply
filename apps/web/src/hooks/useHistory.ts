@@ -1,8 +1,17 @@
+
 "use client";
 
 import { useState, useCallback } from "react";
 import { getUserApiKeys } from "@/lib/keysStorage";
 import { ApplicationRecord } from "@/types/history";
+
+interface GoogleSheetRecord {
+  companyName?: string;
+  jobTitle?: string;
+  jobUrl?: string;
+  matchScore?: string | number;
+  date?: string;
+}
 
 export function useHistory() {
   const [history, setHistory] = useState<ApplicationRecord[]>([]);
@@ -27,8 +36,10 @@ export function useHistory() {
   const fetchHistory = useCallback(async () => {
     const { googleScriptUrl } = getUserApiKeys();
 
+    console.log("Fetching history with URL:", googleScriptUrl);
+
     if (!googleScriptUrl) {
-      setError("Google Sheets URL is not configured in Settings.");
+      setError("Google Sheets URL is not configured in Settings (⚙️).");
       loadFromLocalStorage();
       return;
     }
@@ -37,13 +48,43 @@ export function useHistory() {
     setError(null);
 
     try {
-      const res = await fetch(googleScriptUrl);
-      if (!res.ok) throw new Error("Failed to fetch history");
-      const data = await res.json();
-      const parsedData = Array.isArray(data) ? data : [];
-      setHistory(parsedData);
-      localStorage.setItem("app_history", JSON.stringify(parsedData));
-    } catch {
+      const res = await fetch(googleScriptUrl, {
+        method: "GET",
+        redirect: "follow",
+      });
+
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+
+      const rawData: unknown = await res.json();
+      console.log("Raw Google Sheets response:", rawData);
+
+      if (Array.isArray(rawData)) {
+        const parsedData: ApplicationRecord[] = (
+          rawData as GoogleSheetRecord[]
+        ).map((item) => {
+          let score = 0;
+          if (typeof item.matchScore === "number") {
+            score = item.matchScore;
+          } else if (typeof item.matchScore === "string") {
+            score = parseInt(item.matchScore.replace("%", ""), 10) || 0;
+          }
+
+          return {
+            companyName: item.companyName || "Unknown Company",
+            jobTitle: item.jobTitle || "",
+            jobUrl: item.jobUrl || "",
+            matchScore: score,
+            date: item.date || "",
+          };
+        });
+
+        setHistory(parsedData);
+        localStorage.setItem("app_history", JSON.stringify(parsedData));
+      } else {
+        throw new Error("Invalid response format from Google Sheets");
+      }
+    } catch (err) {
+      console.error("Failed to fetch Google Sheets history:", err);
       loadFromLocalStorage();
     } finally {
       setLoading(false);
