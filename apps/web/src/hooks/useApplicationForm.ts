@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, ChangeEvent, SubmitEvent } from "react";
@@ -10,6 +11,10 @@ import { isAppConfigured } from "../lib/keysStorage";
 export function useApplicationForm() {
   const [jobDescription, setJobDescription] = useState("");
   const [companyName, setCompanyName] = useState("");
+  
+  const [inputMode, setInputMode] = useState<"pdf" | "text">("pdf");
+  const [manualText, setManualText] = useState("");
+
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
 
@@ -48,15 +53,34 @@ export function useApplicationForm() {
       return;
     }
 
-    if (!cvFile) return;
+    if (inputMode === "pdf" && !cvFile) {
+      setError("Please upload your PDF resume.");
+      return;
+    }
+
+    if (inputMode === "text" && !manualText.trim()) {
+      setError("Please enter your skills or bio.");
+      return;
+    }
 
     setLoading(true);
     setError(null);
     setResult(null);
 
     try {
-     
-      const data = await analyzeMatch(jobDescription, cvFile, companyName);
+      let fileToSend = cvFile;
+
+      if (inputMode === "text" && manualText.trim()) {
+        fileToSend = new File([manualText], "candidate_skills.txt", {
+          type: "text/plain",
+        });
+      }
+
+      if (!fileToSend) {
+        throw new Error("No resume file or skills text provided.");
+      }
+
+      const data = await analyzeMatch(jobDescription, fileToSend, companyName);
       setResult(data);
     } catch (err) {
       setError(
@@ -74,6 +98,10 @@ export function useApplicationForm() {
     setJobDescription,
     companyName,
     setCompanyName,
+    inputMode,
+    setInputMode,
+    manualText,
+    setManualText,
     cvFile,
     photoFile,
     photoData,

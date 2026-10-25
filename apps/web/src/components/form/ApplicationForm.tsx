@@ -1,5 +1,6 @@
 
 
+
 "use client";
 
 import { useState } from "react";
@@ -28,6 +29,10 @@ export default function ApplicationForm() {
     setJobDescription,
     companyName,
     setCompanyName,
+    inputMode,
+    setInputMode,
+    manualText,
+    setManualText,
     cvFile,
     photoData,
     photoError,
@@ -41,6 +46,8 @@ export default function ApplicationForm() {
   } = useApplicationForm();
 
   const [themeColor, setThemeColor] = useState("#608abf");
+
+  const isFormValid = inputMode === "pdf" ? !!cvFile : !!manualText.trim();
 
   return (
     <Box>
@@ -61,14 +68,21 @@ export default function ApplicationForm() {
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={3}
-              sx={{ alignItems: "stretch" }}
+              sx={{ alignItems: "center" }}
             >
-              <Box sx={{ flex: 1, display: "flex" }}>
+              <Box sx={{ flex: 1, display: "flex", width: "100%" }}>
                 <CompanyInput value={companyName} onChange={setCompanyName} />
               </Box>
 
-              <Box sx={{ flex: 1, display: "flex" }}>
-                <FileUploader cvFile={cvFile} onFileChange={handleFileChange} />
+              <Box sx={{ flex: 1, display: "flex", width: "100%" }}>
+                <FileUploader
+                  cvFile={cvFile}
+                  onFileChange={handleFileChange}
+                  inputMode={inputMode}
+                  onInputModeChange={setInputMode}
+                  manualText={manualText}
+                  onManualTextChange={setManualText}
+                />
               </Box>
             </Stack>
 
@@ -109,7 +123,7 @@ export default function ApplicationForm() {
               type="submit"
               variant="contained"
               size="large"
-              disabled={loading || !cvFile}
+              disabled={loading || !isFormValid}
               startIcon={
                 loading ? (
                   <CircularProgress size={20} color="inherit" />
@@ -125,13 +139,13 @@ export default function ApplicationForm() {
                 textTransform: "none",
                 borderRadius: 2,
                 background: GRADIENTS.mainButtonAnimated,
-                backgroundSize: "200% auto", 
+                backgroundSize: "200% auto",
                 color: COLORS.lightBg,
                 boxShadow: SHADOWS.btnGrad,
-                transition: "0.5s ease", 
+                transition: "0.5s ease",
 
                 "&:hover": {
-                  backgroundPosition: "right center", 
+                  backgroundPosition: "right center",
                   boxShadow: SHADOWS.btnGradHover,
                 },
 
@@ -139,7 +153,7 @@ export default function ApplicationForm() {
                   background: COLORS.disabledBg,
                   color: COLORS.textMuted,
                   boxShadow: "none",
-                  backgroundSize: "auto", 
+                  backgroundSize: "auto",
                 },
               }}
             >
