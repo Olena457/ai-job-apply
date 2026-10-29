@@ -34,6 +34,7 @@ export default function ApplicationForm() {
     manualText,
     setManualText,
     cvFile,
+    clearFile,
     photoData,
     photoError,
     loading,
@@ -78,6 +79,7 @@ export default function ApplicationForm() {
                 <FileUploader
                   cvFile={cvFile}
                   onFileChange={handleFileChange}
+                  onFileRemove={clearFile}
                   inputMode={inputMode}
                   onInputModeChange={setInputMode}
                   manualText={manualText}

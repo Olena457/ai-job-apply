@@ -32,7 +32,9 @@ export function useApplicationForm() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) setCvFile(e.target.files[0]);
   };
-
+const handleClearFile = () => {
+  setCvFile(null);
+};
   const handlePhotoChange = (file: File) => {
     setPhotoFile(file);
     handlePhotoUpload(file);
@@ -103,6 +105,7 @@ export function useApplicationForm() {
     manualText,
     setManualText,
     cvFile,
+    clearFile: handleClearFile,
     photoFile,
     photoData,
     photoError,

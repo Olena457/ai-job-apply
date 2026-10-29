@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { ChangeEvent, useState } from "react";
@@ -12,13 +13,14 @@ import {
   ToggleButtonGroup,
   IconButton,
 } from "@mui/material";
-import { Download, FileText, Info } from "lucide-react";
+import { Download, FileText, Info, X } from "lucide-react";
 import { COLORS } from "@/constants/theme";
 import ProfileSourceDialog from "./ProfileSourceDialog"; 
 
 interface FileUploaderProps {
   cvFile: File | null;
   onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFileRemove: () => void; 
   inputMode: "pdf" | "text";
   onInputModeChange: (mode: "pdf" | "text") => void;
   manualText: string;
@@ -28,6 +30,7 @@ interface FileUploaderProps {
 export default function FileUploader({
   cvFile,
   onFileChange,
+  onFileRemove,
   inputMode,
   onInputModeChange,
   manualText,
@@ -84,10 +87,10 @@ export default function FileUploader({
               px: { xs: 0.8, sm: 1.2 },
               whiteSpace: "nowrap",
               "&.Mui-selected": {
-                bgcolor: COLORS.disabledBg, 
-                color: COLORS.navy, 
+                bgcolor: COLORS.disabledBg,
+                color: COLORS.navy,
                 "&:hover": {
-                  bgcolor: COLORS.disabledBg, 
+                  bgcolor: COLORS.disabledBg,
                 },
               },
             }}
@@ -163,24 +166,50 @@ export default function FileUploader({
               sx={{
                 mt: 1.5,
                 alignItems: "center",
+                justifyContent: "space-between", 
                 color: COLORS.textMuted,
                 minWidth: 0,
               }}
             >
-              <FileText
-                size={16}
-                style={{ flexShrink: 0, color: COLORS.navy }}
-              />
-              <Typography
-                variant="body2"
-                noWrap
+              <Box
                 sx={{
-                  fontSize: "0.85rem",
-                  color: COLORS.textPrimary,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  minWidth: 0,
                 }}
               >
-                {cvFile.name}
-              </Typography>
+                <FileText
+                  size={16}
+                  style={{ flexShrink: 0, color: COLORS.navy }}
+                />
+                <Typography
+                  variant="body2"
+                  noWrap
+                  sx={{
+                    fontSize: "0.85rem",
+                    color: COLORS.textPrimary,
+                  }}
+                >
+                  {cvFile.name}
+                </Typography>
+              </Box>
+
+              <IconButton
+                size="small"
+                onClick={onFileRemove}
+                sx={{
+                  color: "error.main",
+                  p: 0.5,
+                  flexShrink: 0,
+                  "&:hover": {
+                    bgcolor: "error.lighter",
+                  },
+                }}
+                aria-label="Remove PDF file"
+              >
+                <X size={16} />
+              </IconButton>
             </Stack>
           )}
         </>
