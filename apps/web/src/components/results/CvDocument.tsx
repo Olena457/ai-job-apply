@@ -21,10 +21,12 @@ export default function CvDocument({
 
   const sortedProjects = cv.projects
     ? [...cv.projects].sort((a, b) => {
-        return parseDateForSort(b.period) - parseDateForSort(a.period);
+        const dateA = a.date || a.period || "";
+        const dateB = b.date || b.period || "";
+        return parseDateForSort(dateB) - parseDateForSort(dateA);
       })
     : [];
-
+  
   return (
     <Document title={`${cv.fullName} CV`}>
       <Page size="A4" style={styles.page}>
