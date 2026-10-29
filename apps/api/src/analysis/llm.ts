@@ -9,7 +9,8 @@ import { ApiKeysConfig } from './state';
 
 export function createModels(keys?: ApiKeysConfig) {
   const geminiApiKey = keys?.geminiKey?.trim() || config.GEMINI_API_KEY;
-  const openRouterApiKey = keys?.openRouterKey?.trim() || config.OPENROUTER_API_KEY;
+  const openRouterApiKey =
+    keys?.openRouterKey?.trim() || config.OPENROUTER_API_KEY;
 
   const primary = new ChatGoogleGenerativeAI({
     model: config.PRIMARY_MODEL,
@@ -19,7 +20,7 @@ export function createModels(keys?: ApiKeysConfig) {
   });
 
   const fallback = new ChatOpenAI({
-    modelName: 'mistralai/pixtral-12b:free',
+    modelName: 'openrouter/free',
     apiKey: openRouterApiKey || 'none',
     openAIApiKey: openRouterApiKey || 'none',
     temperature: 0.3,
@@ -40,7 +41,7 @@ export const primaryModel = new ChatGoogleGenerativeAI({
 });
 
 export const openRouterFallbackModel = new ChatOpenAI({
-  modelName: 'mistralai/pixtral-12b:free',
+  modelName: 'openrouter/free',
   apiKey: config.OPENROUTER_API_KEY,
   openAIApiKey: config.OPENROUTER_API_KEY,
   temperature: 0.3,
@@ -77,7 +78,10 @@ function createWithFallbackAndTimeout<
       if (timeoutId) clearTimeout(timeoutId);
 
       if (!hasFallback) {
-        console.error('Primary AI model failed and no fallback configured:', primaryError);
+        console.error(
+          'Primary AI model failed and no fallback configured:',
+          primaryError,
+        );
         throw primaryError;
       }
 
@@ -112,10 +116,14 @@ export function getLlm(keys?: ApiKeysConfig) {
 
 export const llm = getLlm();
 
-export function getStructuredLlm<T extends z.ZodType>(schema: T, keys?: ApiKeysConfig) {
+export function getStructuredLlm<T extends z.ZodType>(
+  schema: T,
+  keys?: ApiKeysConfig,
+) {
   if (!keys?.geminiKey && !keys?.openRouterKey) {
     const primaryStructured = primaryModel.withStructuredOutput(schema);
-    const openRouterStructured = openRouterFallbackModel.withStructuredOutput(schema);
+    const openRouterStructured =
+      openRouterFallbackModel.withStructuredOutput(schema);
     return createWithFallbackAndTimeout(
       primaryStructured,
       openRouterStructured,
