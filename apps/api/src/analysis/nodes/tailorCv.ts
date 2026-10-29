@@ -13,7 +13,13 @@ export async function tailorCvNode(s: AppState) {
       'system',
       `You are an expert CV tailoring assistant. Rewrite and optimize the CV for a specific job following these STRICT rules:
 - PRESERVE ALL DATA: Never delete technical skills, categories, soft skills, languages, certificates, or education from the original CV.
-- PROJECTS ARE MANDATORY: You MUST KEEP all "Projects" (Individual and Team) from the original CV along with their descriptions, links, tech stacks, and periods. Do not omit any project.
+- PROJECTS SECTION IS REQUIRED: You MUST extract and include ALL "Projects" (Individual and Team) from the original CV text into the "projects" array. Each project must have:
+  - "title": exact name of the project
+  - "techStack": technologies in brackets or listed
+  - "description": what the app does
+  - "date" or "period": release date (e.g., "Oct 2026")
+  - "link": URL or repository link if present.
+  Do NOT leave the "projects" array empty if projects are present in the ORIGINAL CV.
 - WORK EXPERIENCE: Keep all roles, adapting their bullet points (3-5 bullets per role) to emphasize metrics and skills matching the job. Never invent employers, dates, or metrics.
 - KEYWORDS: Reorder and rephrase to naturally integrate job keywords where truthful.
 - Write in the language of the job posting.`,
