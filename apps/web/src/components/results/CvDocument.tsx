@@ -1,7 +1,8 @@
+
 import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
-import type { ProjectWithDate, TailoredCv } from "../../types/analysis";
-import { styles } from "./CvStyles"; 
-import { parseDateForSort } from "./cvUtils"; 
+import type { TailoredCv } from "../../types/analysis";
+import { styles } from "./CvStyles";
+import { parseDateForSort } from "./cvUtils";
 
 interface CvDocumentProps {
   cv: TailoredCv;
@@ -12,7 +13,7 @@ interface CvDocumentProps {
 export default function CvDocument({
   cv,
   photoData,
-  themeColor = "#5a85b5", 
+  themeColor = "#5a85b5",
 }: CvDocumentProps) {
   const sortedExperience = [...cv.experience].sort(
     (a, b) => parseDateForSort(b.period) - parseDateForSort(a.period),
@@ -20,13 +21,7 @@ export default function CvDocument({
 
   const sortedProjects = cv.projects
     ? [...cv.projects].sort((a, b) => {
-        const projA = a as unknown as ProjectWithDate;
-        const projB = b as unknown as ProjectWithDate;
-
-        return (
-          parseDateForSort(projB.period || projB.date) -
-          parseDateForSort(projA.period || projA.date)
-        );
+        return parseDateForSort(b.period) - parseDateForSort(a.period);
       })
     : [];
 
@@ -40,21 +35,39 @@ export default function CvDocument({
             </View>
           )}
 
-          <Text style={styles.sectionTitleLeft}>Contact Info</Text>
-          {cv.contacts.map((contact, i) => (
-            <Text key={i} style={styles.contacts}>
-              {contact}
-            </Text>
-          ))}
-
           <Text style={styles.sectionTitleLeft}>Tech Skills</Text>
           <Text style={styles.skillText}>{cv.skills.join(" • ")}</Text>
+
+          {cv.softSkills && cv.softSkills.length > 0 && (
+            <>
+              <Text style={styles.sectionTitleLeft}>Soft Skills</Text>
+              <Text style={styles.skillText}>{cv.softSkills.join(" • ")}</Text>
+            </>
+          )}
+
+          {cv.certificates && cv.certificates.length > 0 && (
+            <>
+              <Text style={styles.sectionTitleLeft}>Certificates</Text>
+              {cv.certificates.map((cert, i) => (
+                <View key={i} style={{ marginBottom: 4 }}>
+                  <Text style={styles.skillText}>{cert.title}</Text>
+                </View>
+              ))}
+            </>
+          )}
+
+          {cv.languages && cv.languages.length > 0 && (
+            <>
+              <Text style={styles.sectionTitleLeft}>Languages</Text>
+              <Text style={styles.skillText}>{cv.languages.join(" • ")}</Text>
+            </>
+          )}
 
           <Text style={styles.sectionTitleLeft}>Education</Text>
           {cv.education.map((ed, i) => (
             <View key={i} style={{ marginBottom: 6 }}>
               <Text style={styles.bold}>{ed.title}</Text>
-              <Text>{ed.details}</Text>
+              <Text style={styles.skillText}>{ed.details}</Text>
             </View>
           ))}
         </View>
@@ -65,6 +78,17 @@ export default function CvDocument({
           <Text style={[styles.headline, { color: themeColor }]}>
             {cv.headline}
           </Text>
+
+          {cv.contacts && cv.contacts.length > 0 && (
+            <View style={styles.contactsRow}>
+              {cv.contacts.map((contact, i) => (
+                <Text key={i}>
+                  {contact}
+                  {i < cv.contacts.length - 1 ? "  |  " : ""}
+                </Text>
+              ))}
+            </View>
+          )}
 
           <Text
             style={[
@@ -88,10 +112,22 @@ export default function CvDocument({
               </Text>
               {sortedProjects.map((p, i) => (
                 <View key={i} style={styles.itemBlock} wrap={false}>
-                  <Text style={styles.bold}>
-                    {p.title} [{p.techStack}]
-                  </Text>
-                  <Text>{p.description}</Text>
+                  <View style={styles.roleRow}>
+                    <Text style={styles.bold}>
+                      {p.title} {p.link ? `(${p.link})` : ""}
+                    </Text>
+                    {(p.date || p.period) && (
+                      <Text style={{ fontSize: 8, color: "#666" }}>
+                        {p.date || p.period}
+                      </Text>
+                    )}
+                  </View>
+                  {p.techStack && (
+                    <Text style={styles.projectTech}>
+                      Tech stack: {p.techStack}
+                    </Text>
+                  )}
+                  <Text style={styles.paragraph}>{p.description}</Text>
                 </View>
               ))}
             </>

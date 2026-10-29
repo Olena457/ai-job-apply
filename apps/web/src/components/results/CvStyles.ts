@@ -1,3 +1,4 @@
+
 import { Font, StyleSheet } from "@react-pdf/renderer";
 
 Font.register({
@@ -16,14 +17,16 @@ export const styles = StyleSheet.create({
   page: {
     flexDirection: "row",
     fontFamily: "Roboto",
-    fontSize: 9.5,
-    lineHeight: 1.3,
+    fontSize: 9,
+    lineHeight: 1.35,
+    backgroundColor: "#ffffff",
   },
 
   leftColumn: {
     width: "32%",
+    backgroundColor: "#2c3e50",
     color: "#fff",
-    padding: "20px 15px",
+    padding: "18px 12px",
   },
 
   photoContainer: {
@@ -31,64 +34,107 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   photo: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 75,
+    height: 75,
+    borderRadius: 37.5,
     objectFit: "cover",
+    border: "2pt solid #fff",
   },
 
-  contacts: { fontSize: 8.5, marginBottom: 2, color: "#e0e0e0" },
   sectionTitleLeft: {
-    fontSize: 10,
+    fontSize: 9.5,
     fontWeight: 700,
     textTransform: "uppercase",
-    borderBottom: "1pt solid #8faecc", 
+    borderBottom: "1pt solid #1abc9c",
     paddingBottom: 2,
-    marginTop: 12,
-    marginBottom: 6,
+    marginTop: 10,
+    marginBottom: 5,
+    letterSpacing: 0.5,
   },
 
   skillText: {
-    fontSize: 8.5,
-    lineHeight: 1.5,
+    fontSize: 8,
+    lineHeight: 1.4,
+    color: "#ecf0f1",
   },
 
-  rightColumn: { width: "68%", padding: "20px 20px 20px 15px", color: "#222" },
+  rightColumn: {
+    width: "68%",
+    padding: "18px 18px 18px 15px",
+    color: "#2c3e50",
+  },
+
   name: {
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: 700,
     textTransform: "uppercase",
-    color: "#333",
-    lineHeight: 1.1,     
-    marginBottom: 4,
+    color: "#2c3e50",
+    lineHeight: 1.1,
+    marginBottom: 2,
   },
+
   headline: {
+    fontSize: 9.5,
+    fontWeight: 700,
+    color: "#16a085",
+    textTransform: "uppercase",
+    marginBottom: 4,
+    letterSpacing: 0.5,
+  },
+
+  contactsRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    fontSize: 8,
+    color: "#555",
+    marginBottom: 10,
+    gap: 4,
+  },
+  contactItem: {
+    marginRight: 6,
+    color: "#2980b9",
+  },
+
+  sectionTitleRight: {
     fontSize: 10,
     fontWeight: 700,
-    marginBottom: 10,
     textTransform: "uppercase",
-  },
-  sectionTitleRight: {
-    fontSize: 11,
-    fontWeight: 700,
-    textTransform: "uppercase",
-    borderBottomWidth: 1, 
+    color: "#2c3e50",
+    borderBottomWidth: 1,
     borderBottomStyle: "solid",
+    borderBottomColor: "#bdc3c7",
     paddingBottom: 2,
-    marginTop: 10,
-    marginBottom: 6,
+    marginTop: 8,
+    marginBottom: 5,
+    letterSpacing: 0.5,
   },
 
   bold: { fontWeight: 700 },
-  paragraph: { marginBottom: 8 },
+  paragraph: { marginBottom: 6, color: "#34495e" },
 
-  itemBlock: { marginBottom: 8 },
+  itemBlock: { marginBottom: 6 },
   roleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 2,
   },
-  bulletRow: { flexDirection: "row", marginBottom: 1 },
-  bullet: { width: 10 },
-  bulletText: { flex: 1 },
+  bulletRow: { flexDirection: "row", marginBottom: 2 },
+  bullet: { width: 8, color: "#16a085" },
+  bulletText: { flex: 1, color: "#34495e" },
+
+  projectBlock: {
+    marginBottom: 6,
+  },
+  projectHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    fontWeight: 700,
+    fontSize: 9,
+  },
+  projectTech: {
+    fontSize: 8,
+    color: "#7f8c8d",
+    fontStyle: "italic",
+    marginBottom: 1,
+  },
 });

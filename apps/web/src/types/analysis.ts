@@ -43,10 +43,16 @@ export interface TailoredCv {
   headline: string;
   summary: string;
   skills: string[];
+  softSkills?: string[];
+  certificates?: { title: string; link?: string }[];
+  languages?: string[];
   projects?: {
     title: string;
     techStack: string;
     description: string;
+    date?: string; 
+    period?: string;
+    link?: string;
   }[];
   experience: {
     role: string;

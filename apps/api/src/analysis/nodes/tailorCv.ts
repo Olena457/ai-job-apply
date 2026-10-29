@@ -11,11 +11,11 @@ export async function tailorCvNode(s: AppState) {
   const prompt = ChatPromptTemplate.fromMessages([
     [
       'system',
-      `You rewrite a CV for a specific job. Rules:
-- Use ONLY facts present in the original CV. Never invent employers, dates, skills or metrics.
-- Reorder and rephrase to emphasize what matches the job; use the job's keywords where they are truthful.
-- Keep it concise: 3-5 bullets per role, strongest first.
-- MUST KEEP all "Projects" (Individual and Team) from the original CV. Adapt their technical descriptions to highlight skills relevant to the job, but do not delete them.
+      `You are an expert CV tailoring assistant. Rewrite and optimize the CV for a specific job following these STRICT rules:
+- PRESERVE ALL DATA: Never delete technical skills, categories, soft skills, languages, certificates, or education from the original CV.
+- PROJECTS ARE MANDATORY: You MUST KEEP all "Projects" (Individual and Team) from the original CV along with their descriptions, links, tech stacks, and periods. Do not omit any project.
+- WORK EXPERIENCE: Keep all roles, adapting their bullet points (3-5 bullets per role) to emphasize metrics and skills matching the job. Never invent employers, dates, or metrics.
+- KEYWORDS: Reorder and rephrase to naturally integrate job keywords where truthful.
 - Write in the language of the job posting.`,
     ],
     [
