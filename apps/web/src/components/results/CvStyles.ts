@@ -1,4 +1,3 @@
-
 import { Font, StyleSheet } from "@react-pdf/renderer";
 
 Font.register({
@@ -134,7 +133,6 @@ export const styles = StyleSheet.create({
   projectTech: {
     fontSize: 8,
     color: "#7f8c8d",
-    fontStyle: "italic",
     marginBottom: 1,
   },
 });
