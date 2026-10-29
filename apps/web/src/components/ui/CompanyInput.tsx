@@ -1,4 +1,8 @@
 
+
+"use client";
+
+import { useState } from "react";
 import {
   TextField,
   IconButton,
@@ -6,8 +10,9 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { X } from "lucide-react";
+import { X, Info } from "lucide-react";
 import { COLORS } from "@/constants/theme";
+import ProfileSourceDialog from "./ProfileSourceDialog"; 
 
 interface CompanyInputProps {
   value: string;
@@ -15,6 +20,8 @@ interface CompanyInputProps {
 }
 
 export default function CompanyInput({ value, onChange }: CompanyInputProps) {
+  const [infoOpen, setInfoOpen] = useState(false);
+
   return (
     <Box sx={{ textAlign: "left", width: "100%" }}>
       <Box
@@ -26,22 +33,32 @@ export default function CompanyInput({ value, onChange }: CompanyInputProps) {
           mb: 1.4,
         }}
       >
-        <Typography
-          variant="subtitle2"
-          sx={{
-            fontWeight: 700,
-            color: COLORS.navy,
-            fontSize: "0.85rem",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Company Name or URL
-          <span
-            style={{ color: COLORS.asterisk || "#d32f2f", marginLeft: "2px" }}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 700,
+              color: COLORS.navy,
+              fontSize: "0.85rem",
+              whiteSpace: "nowrap",
+            }}
           >
-            *
-          </span>
-        </Typography>
+            Company Name or URL
+            <span
+              style={{ color: COLORS.asterisk || "#d32f2f", marginLeft: "2px" }}
+            >
+              *
+            </span>
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={() => setInfoOpen(true)}
+            sx={{ color: COLORS.navy, p: 0.5 }}
+            aria-label="Company input info"
+          >
+            <Info size={16} />
+          </IconButton>
+        </Box>
       </Box>
 
       <TextField
@@ -76,7 +93,7 @@ export default function CompanyInput({ value, onChange }: CompanyInputProps) {
           width: "100%",
           display: "block",
           "& .MuiOutlinedInput-root": {
-            height: "45px", 
+            height: "45px",
             fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)",
             borderRadius: 2,
             width: "100%",
@@ -93,6 +110,28 @@ export default function CompanyInput({ value, onChange }: CompanyInputProps) {
           },
         }}
       />
+
+      <ProfileSourceDialog
+        open={infoOpen}
+        onClose={() => setInfoOpen(false)}
+        title="About Company Input"
+      >
+        <Typography
+          variant="body2"
+          sx={{ color: "text.primary", lineHeight: 1.6, mb: 1.5 }}
+        >
+          You need to enter either the &nbsp;
+          <strong>link to the company website</strong> or the &nbsp;
+          <strong>company name</strong> (e.g., Google, Microsoft).
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{ color: "text.primary", lineHeight: 1.6 }}
+        >
+          The AI will automatically analyze the target company details to tailor
+          your resume and cover letter precisely to their requirements.
+        </Typography>
+      </ProfileSourceDialog>
     </Box>
   );
 }

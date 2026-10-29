@@ -43,7 +43,7 @@ export default function PhotoUploader({
         height: "100%",
         width: "100%",
         boxSizing: "border-box",
-        
+
         "&:hover": {
           borderColor: COLORS.navy,
           bgcolor: "rgba(26, 41, 128, 0.04)",
@@ -52,7 +52,7 @@ export default function PhotoUploader({
     >
       <Avatar
         src={photoData || undefined}
-        sx={{ width: 64, height: 64, bgcolor: "action.hover", flexShrink: 0 }}
+        sx={{ width: 64, height: 64, bgcolor: "#e9eff4", flexShrink: 0 }}
       >
         {!photoData && (
           <ImageIcon
@@ -75,7 +75,7 @@ export default function PhotoUploader({
           variant="subtitle2"
           sx={{
             fontWeight: 600,
-            color: COLORS.navy, 
+            color: COLORS.navy,
             fontSize: "0.875rem",
             mb: 0.5,
             textAlign: "left",

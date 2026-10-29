@@ -1,7 +1,7 @@
 
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Box,
   Button,
@@ -10,9 +10,11 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, Info } from "lucide-react";
 import { COLORS } from "@/constants/theme";
+import ProfileSourceDialog from "./ProfileSourceDialog"; 
 
 interface FileUploaderProps {
   cvFile: File | null;
@@ -31,6 +33,8 @@ export default function FileUploader({
   manualText,
   onManualTextChange,
 }: FileUploaderProps) {
+  const [infoOpen, setInfoOpen] = useState(false);
+
   return (
     <Box sx={{ textAlign: "left", width: "100%" }}>
       <Box
@@ -38,22 +42,33 @@ export default function FileUploader({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          pt: "2px", 
+          pt: "2px",
           mb: 1,
           gap: 1,
         }}
       >
-        <Typography
-          variant="subtitle2"
-          sx={{
-            fontWeight: 700,
-            color: COLORS.navy,
-            fontSize: "clamp(0.7rem, 2vw, 0.85rem)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Profile Source <span style={{ color: COLORS.asterisk }}>*</span>
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 700,
+              color: COLORS.navy,
+              fontSize: "clamp(0.7rem, 2vw, 0.85rem)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Profile Source <span style={{ color: COLORS.asterisk }}>*</span>
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={() => setInfoOpen(true)}
+            sx={{ color: COLORS.navy, p: 0.5 }}
+            aria-label="Profile source info"
+          >
+            <Info size={16} />
+          </IconButton>
+        </Box>
+
         <ToggleButtonGroup
           value={inputMode}
           exclusive
@@ -68,6 +83,13 @@ export default function FileUploader({
               fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
               px: { xs: 0.8, sm: 1.2 },
               whiteSpace: "nowrap",
+              "&.Mui-selected": {
+                bgcolor: COLORS.disabledBg, 
+                color: COLORS.navy, 
+                "&:hover": {
+                  bgcolor: COLORS.disabledBg, 
+                },
+              },
             }}
           >
             PDF Resume
@@ -79,6 +101,13 @@ export default function FileUploader({
               fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
               px: { xs: 0.8, sm: 1.2 },
               whiteSpace: "nowrap",
+              "&.Mui-selected": {
+                bgcolor: COLORS.disabledBg,
+                color: COLORS.navy,
+                "&:hover": {
+                  bgcolor: COLORS.disabledBg,
+                },
+              },
             }}
           >
             Type Skills
@@ -107,14 +136,13 @@ export default function FileUploader({
               color: COLORS.navy,
               borderWidth: 2,
               fontWeight: 650,
-              fontSize: "clamp(0.7rem, 2vw, 0.875rem)",
+              fontSize: "clamp(0.7rem, 2.2vw, 0.875rem)",
               lineHeight: 1.3,
               textAlign: "center",
               whiteSpace: "normal",
               wordBreak: "break-word",
               "&:hover": {
                 borderColor: COLORS.navy,
-                bgcolor: "rgba(26, 41, 128, 0.04)",
               },
             }}
           >
@@ -173,6 +201,8 @@ export default function FileUploader({
           }}
         />
       )}
+
+      <ProfileSourceDialog open={infoOpen} onClose={() => setInfoOpen(false)} />
     </Box>
   );
 }

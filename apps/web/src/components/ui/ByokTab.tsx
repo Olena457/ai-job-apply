@@ -1,5 +1,7 @@
+
 "use client";
 
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -9,9 +11,10 @@ import {
   Alert,
   Link,
 } from "@mui/material";
-import { Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Eye, EyeOff, ExternalLink, Info } from "lucide-react";
 import { COLORS } from "@/constants/theme";
 import { ByokTabProps } from "@/types/settings";
+import GoogleScriptInfoDialog from "@/components/ui/GoogleScriptInfoDialog";
 
 export default function ByokTab({
   keys,
@@ -23,6 +26,8 @@ export default function ByokTab({
   showOpenRouter,
   setShowOpenRouter,
 }: ByokTabProps) {
+  const [scriptDialogOpen, setScriptDialogOpen] = useState(false);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
       <Alert
@@ -215,15 +220,25 @@ export default function ByokTab({
 
       {/* Google Sheets Webhook URL */}
       <Box>
-        <Typography
-          variant="subtitle2"
-          sx={{ fontWeight: 600, color: COLORS.navy, mb: 0.5 }}
-        >
-          Google Apps Script URL{" "}
-          <span style={{ color: COLORS.textMuted, fontSize: "0.75rem" }}>
-            (optional)
-          </span>
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{ fontWeight: 600, color: COLORS.navy }}
+          >
+            Google Apps Script URL
+            <span style={{ color: COLORS.textMuted, fontSize: "0.75rem" }}>
+              (optional)
+            </span>
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={() => setScriptDialogOpen(true)}
+            sx={{ color: COLORS.navy, p: 0.2 }}
+            aria-label="Google Apps Script help"
+          >
+            <Info size={16} />
+          </IconButton>
+        </Box>
         <TextField
           fullWidth
           size="small"
@@ -233,6 +248,11 @@ export default function ByokTab({
           helperText="For automatically recording job applications in your own Google Sheet"
         />
       </Box>
+
+      <GoogleScriptInfoDialog
+        open={scriptDialogOpen}
+        onClose={() => setScriptDialogOpen(false)}
+      />
     </Box>
   );
 }
