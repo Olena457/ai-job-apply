@@ -40,6 +40,31 @@ export const TailoredCvSchema = z.object({
   headline: z.string(),
   summary: z.string(),
   skills: z.array(z.string()),
+
+  softSkills: z.array(z.string()).optional(),
+  languages: z.array(z.string()).optional(),
+  certificates: z
+    .array(
+      z.object({
+        title: z.string(),
+        link: z.string().optional(),
+      }),
+    )
+    .optional(),
+
+  projects: z
+    .array(
+      z.object({
+        title: z.string(),
+        techStack: z.string(),
+        description: z.string(),
+        date: z.string().optional(),
+        period: z.string().optional(),
+        link: z.string().optional(),
+      }),
+    )
+    .optional(),
+
   experience: z.array(
     z.object({
       role: z.string(),

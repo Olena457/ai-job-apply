@@ -1,3 +1,4 @@
+
 import { UserApiKeys } from "@/lib/keysStorage";
 
 export interface AdminTabProps {
@@ -44,13 +45,16 @@ export interface TailoredCv {
   summary: string;
   skills: string[];
   softSkills?: string[];
-  certificates?: { title: string; link?: string }[];
+  certificates?: {
+    title: string;
+    link?: string;
+  }[];
   languages?: string[];
   projects?: {
     title: string;
     techStack: string;
     description: string;
-    date?: string; 
+    date?: string;
     period?: string;
     link?: string;
   }[];
@@ -60,7 +64,10 @@ export interface TailoredCv {
     period: string;
     bullets: string[];
   }[];
-  education: { title: string; details: string }[];
+  education: {
+    title: string;
+    details: string;
+  }[];
   photoUrl?: string;
 }
 
