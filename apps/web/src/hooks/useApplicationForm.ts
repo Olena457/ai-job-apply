@@ -50,7 +50,7 @@ const handleClearFile = () => {
 
     if (!isAppConfigured()) {
       setError(
-        "Please enter your Gemini API Key or admin password in Settings (⚙️ in header).",
+        "Please enter your Gemini API Key or admin password in Settings.",
       );
       return;
     }

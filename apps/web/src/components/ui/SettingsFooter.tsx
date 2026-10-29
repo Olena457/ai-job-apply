@@ -16,18 +16,32 @@ export default function SettingsFooter({
   onSave,
 }: SettingsFooterProps) {
   return (
-    <DialogActions sx={{ p: 3, pt: 1, justifyContent: "space-between" }}>
+    <DialogActions
+      sx={{
+        p: { xs: 2, sm: 3 },
+        pt: 1,
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <Button
         onClick={onClear}
         color="error"
         size="small"
         startIcon={<Trash2 size={16} />}
-        sx={{ textTransform: "none", fontSize: "0.825rem" }}
+        sx={{
+          textTransform: "none",
+          fontSize: { xs: "0.75rem", sm: "0.825rem" },
+          px: { xs: 1, sm: 1.5 },
+          minWidth: "auto",
+        }}
       >
-        Clear All
+        Clear
       </Button>
 
-      <Box sx={{ display: "flex", gap: 1.5 }}>
+      <Box
+        sx={{ display: "flex", gap: { xs: 1, sm: 1.5 }, alignItems: "center" }}
+      >
         <Button
           onClick={onClose}
           variant="outlined"
@@ -36,6 +50,10 @@ export default function SettingsFooter({
             borderRadius: 2,
             borderColor: COLORS.border,
             color: COLORS.textPrimary,
+            fontSize: { xs: "0.75rem", sm: "0.875rem" },
+            px: { xs: 1.5, sm: 2 },
+            py: { xs: 0.5, sm: 1 },
+            minWidth: "auto",
           }}
         >
           Cancel
@@ -52,7 +70,10 @@ export default function SettingsFooter({
             textTransform: "none",
             fontWeight: 600,
             borderRadius: 2,
-            px: 3,
+            fontSize: { xs: "0.75rem", sm: "0.875rem" },
+            px: { xs: 2, sm: 3 },
+            py: { xs: 0.5, sm: 1 },
+            minWidth: "auto",
             "&:hover": {
               backgroundPosition: "right center",
               boxShadow: SHADOWS.btnGradHover,

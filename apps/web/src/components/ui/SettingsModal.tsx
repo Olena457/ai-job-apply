@@ -52,12 +52,13 @@ export default function SettingsModal() {
           },
         }}
       >
-        <SettingsHeader />
+        <SettingsHeader onClose={handleClose} />
 
         <Box sx={{ px: 3, borderBottom: `1px solid ${COLORS.border}` }}>
           <Tabs
             value={activeTab}
             onChange={(_, val) => setActiveTab(val)}
+            variant="fullWidth"
             sx={{
               "& .MuiTabs-indicator": {
                 backgroundColor: COLORS.cyan,
@@ -69,6 +70,7 @@ export default function SettingsModal() {
                 fontWeight: 600,
                 fontSize: "0.9rem",
                 color: COLORS.textMuted,
+                flex: 1, 
                 "&.Mui-selected": {
                   color: COLORS.navy,
                 },
@@ -76,12 +78,12 @@ export default function SettingsModal() {
             }}
           >
             <Tab
-              icon={<KeyRound size={17} />}
+              icon={<KeyRound size={18} />}
               iconPosition="start"
-              label="Custom API Keys (BYOK)"
+              label="Your API Keys"
             />
             <Tab
-              icon={<ShieldCheck size={17} />}
+              icon={<ShieldCheck size={18} />}
               iconPosition="start"
               label="Administrator"
             />
